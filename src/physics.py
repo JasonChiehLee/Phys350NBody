@@ -1,7 +1,7 @@
 """ Generic physics functions. """
 
 from object import Object
-from scipy.constants import *
+from scipy.constants import gravitational_constant
 
 def getVecNorm(vec):
         """ Return magnitude of a vector. """
