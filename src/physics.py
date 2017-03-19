@@ -20,4 +20,5 @@ def getPosRel(obj1, obj2):
 
 def getGravPE(obj1, obj2):
     """ Calculate the gravitational potential energy between 2 objects. """
-    return -1 * gravitational_constant * obj1.getMass * obj2.getMass / getVecNorm(getPosRel(obj1,obj2))
+    return -1 * gravitational_constant * obj1.getMass * obj2.getMass \
+           / getVecNorm(getPosRel(obj1, obj2))
