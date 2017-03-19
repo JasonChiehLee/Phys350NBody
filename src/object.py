@@ -1,7 +1,7 @@
 class Object:
     """ Generic object in orbit. """
 
-    def __init__(self mass, pos_x, pos_y, vel_x, vel_y):
+    def __init__(self, mass, pos_x, pos_y, vel_x, vel_y):
         """ Initialize mass, position, velocity. """
         self.mass = mass
         self.pos_x = pos_x
@@ -42,7 +42,4 @@ class Object:
         vel.append(self.vel_x)
         vel.append(self.vel_y)
         return vel
-
-    def getVelNorm(self):
-        """ Return magnitude of velcity of object. """
-        return (self.vel_x ** 2) + (self.vel_y ** 2)
+        
