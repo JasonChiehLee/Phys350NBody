@@ -9,7 +9,7 @@ def getVecNorm(vec):
 
 def getKE(obj):
     """ Calculate the kinetic energy of an object. """
-    return 0.5 * obj.getMass * getVelNorm(obj.getVelVec)
+    return 0.5 * obj.getMass * getVecNorm(obj.getVelVec)
 
 def getPosRel(obj1, obj2):
     """ Calculate the position vector of obj2 relative to obj1. """
