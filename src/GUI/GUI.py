@@ -1,9 +1,9 @@
 from tkinter import*
 root = Tk()
-
+root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
 desc = "The Odd Squad presents: 3 Body Orbital Mechanics"
 
-w1 = Label(root,
+description = Label(root,
     justify=LEFT, text=desc).grid(row=0, column=0, columnspan=2)
 
 #logo = PhotoImage(file='./orbit_logo.gif')
@@ -29,7 +29,7 @@ m3_slider = Scale(root, from_=0, to= 1000, length=150,
     orient=HORIZONTAL)
 m3_slider.grid(row=3, column=2)
 
-set_mass = Button(root, text='Set Mass', fg="green", bg='white')
+set_mass = Button(root, text='Set Mass')
 set_mass.grid(row=4, column=1)
 
 v1_label = Label(root, text="Velocity 1").grid(row=5, column=0)
@@ -53,9 +53,9 @@ v3_slider = Scale(root, from_=0, to= 1000, length=150,
     orient=HORIZONTAL)
 v3_slider.grid(row=7, column=2)
 
-set_vel = Button(root, text='Set Velocity', fg='green', bg='white')
+set_vel = Button(root, text='Set Velocity')
 set_vel.grid(row=8, column=1)
 
-quit_but = Button(root, text='QUIT', fg="red", bg='white', command=quit)
+quit_but = Button(root, text='QUIT', command=quit)
 quit_but.grid(row=9, column=1)
 root.mainloop()
