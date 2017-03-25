@@ -35,7 +35,7 @@ class Derivative:
         self.dy = dy
         self.du = du
         self.dv = dv
-    
+
     def as_vec(self):
         """ Get infinitesemal in terms of position and velocity. """
         return np.np.array([self.dx, self.dy, self.du, self.dv])
@@ -70,20 +70,20 @@ def get_accel(state):
             accel = np.add(accel, -G * obj_rel.mass * rel / (norm ** 3))
     return accel
 
-def get_deriv(state, deriv, d_t):
+def get_deriv(state, deriv, dt):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
-    new_state = np.add(state.as_vec(), deriv.as_vec() * d_t)
+    new_state = np.add(state.as_vec(), deriv.as_vec() * dt)
     accel = get_accel(new_state)
     return Derivative(new_state[1], new_state[2], accel[0], accel[1])
 
-def iterate(state, d_t):
+def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
     init_accel = get_accel(state)
 
     k_1 = Derivative(state[2], state[3], init_accel[0], init_accel[1])
-    k_2 = get_deriv(state, k_1, d_t / 2.0)
-    k_3 = get_deriv(state, k_2, d_t / 2.0)
-    k_4 = get_deriv(state, k_1, d_t)
+    k_2 = get_deriv(state, k_1, dt / 2.0)
+    k_3 = get_deriv(state, k_2, dt / 2.0)
+    k_4 = get_deriv(state, k_1, dt)
     result = np.add(k_1, np.add(2.0 * np.add(k_2, k_3), k_4)) / 6.0
 
     return State(result[0], result[1], result[0], result[2])

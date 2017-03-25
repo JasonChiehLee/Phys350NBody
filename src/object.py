@@ -15,6 +15,6 @@ class Object:
         self.state = state
         phys.G_OBJECTS.append(self)
 
-    def update_state(self, d_t):
+    def update_state(self, dt):
         """ Update state after step of iteration. """
-        self.state = phys.iterate(self.state, d_t)
+        self.state = phys.iterate(self.state, dt)
