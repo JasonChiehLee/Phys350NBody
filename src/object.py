@@ -2,6 +2,8 @@
 Basic object class.
 """
 
+import numpy as np
+
 class Object:
     """ Generic object in orbit. """
     def __init__(self, mass, radius, pos_x, pos_y, vel_x, vel_y):
@@ -39,17 +41,11 @@ class Object:
 
     def get_pos_vec(self):
         """ Return position [x,y] of object. """
-        pos = []
-        pos.append(self.pos_x)
-        pos.append(self.pos_y)
-        return pos
+        return np.array([self.pos_x, self.pos_y])
 
     def get_vel_vec(self):
         """ Return velocity [x,y] of object. """
-        vel = []
-        vel.append(self.vel_x)
-        vel.append(self.vel_y)
-        return vel
+        return np.array([self.vel_x, self.vel_y])
 
     def update_pos(self, pos_x, pos_y):
         """ Change object's position. """
