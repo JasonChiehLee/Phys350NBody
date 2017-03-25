@@ -1,4 +1,4 @@
-""" Test current progrm functionality. """
+""" Test current program functionality. """
 
 from object import Object
 from plot import Plot

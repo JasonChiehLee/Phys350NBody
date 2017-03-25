@@ -23,5 +23,5 @@ def get_pos_rel(obj_1, obj_2):
 @staticmethod
 def get_grav_pe(obj_1, obj_2):
     """ Calculate the gravitational potential energy between 2 objects. """
-    return -1 * gravitational_constant * obj_1.get_mass * obj_2.get_mass() \
+    return -1 * gravitational_constant * obj_1.get_mass() * obj_2.get_mass() \
         / get_norm(get_pos_rel(obj_1, obj_2))
