@@ -3,17 +3,21 @@ Basic object class.
 """
 
 import numpy as np
+import physics as phys
+
+class State:
+    """ State, which defines object's position and velocity. """
+    def __init__(self, pos_x, pos_y, vel_x, vel_y):
+        self.pos = np.array([pos_x, pos_y])
+        self.vel = np.array([vel_x, vel_y])
 
 class Object:
     """ Generic object in orbit. """
-    def __init__(self, mass, radius, pos_x, pos_y, vel_x, vel_y):
+    def __init__(self, density, radius, state):
         """ Initialize mass, radius, position, velocity. """
-        self.mass = mass
+        self.mass = phys.get_mass(density, radius)
         self.radius = radius
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.vel_x = vel_x
-        self.vel_y = vel_y
+        self.state = state
 
     def get_mass(self):
         """ Return mass of object. """
@@ -23,36 +27,14 @@ class Object:
         """ Return radius of object. """
         return self.radius
 
-    def get_pos_x(self):
-        """ Return x-coordinate of object. """
-        return self.pos_x
-
-    def get_pos_y(self):
-        """ Return y-coordinate of object. """
-        return self.pos_y
-
-    def get_vel_x(self):
-        """ Return x-velocity of object. """
-        return self.vel_x
-
-    def get_vel_y(self):
-        """ Return y-velocity of object. """
-        return self.vel_y
-
-    def get_pos_vec(self):
+    def get_pos(self):
         """ Return position [x,y] of object. """
-        return np.array([self.pos_x, self.pos_y])
+        return np.array(self.state.pos)
 
-    def get_vel_vec(self):
+    def get_vel(self):
         """ Return velocity [x,y] of object. """
-        return np.array([self.vel_x, self.vel_y])
+        return np.array(self.state.vel)
 
-    def update_pos(self, pos_x, pos_y):
-        """ Change object's position. """
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-
-    def update_vel(self, vel_x, vel_y):
-        """ Change object's velocity. """
-        self.vel_x = vel_x
-        self.vel_y = vel_y
+    def update_state(self, state):
+        """ Update object state. """
+        self.state = state
