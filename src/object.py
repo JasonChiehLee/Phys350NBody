@@ -8,6 +8,7 @@ import physics as phys
 class State:
     """ State, which defines object's position and velocity. """
     def __init__(self, pos_x, pos_y, vel_x, vel_y):
+        """ Initialize vectors for position and velocity. """
         self.pos = np.array([pos_x, pos_y])
         self.vel = np.array([vel_x, vel_y])
 
