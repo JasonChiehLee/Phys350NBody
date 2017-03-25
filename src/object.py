@@ -45,3 +45,13 @@ class Object:
         vel.append(self.vel_x)
         vel.append(self.vel_y)
         return vel
+
+    def update_pos(self, pos_x, pos_y):
+        """ Change object's position. """
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+
+    def update_vel(self, vel_x, vel_y):
+        """ Change object's velocity. """
+        self.vel_x = vel_x
+        self.vel_y = vel_y
