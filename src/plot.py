@@ -13,7 +13,7 @@ class Plot:
 
     def place_obj(self, obj, colour):
         """ Add an object to the plot. """
-        draw_obj = plt.Circle(obj.get_pos(), obj.get_radius(), \
+        draw_obj = plt.Circle(obj.state.get_pos(), obj.radius, \
                               fill=True, color=colour)
         plt.gca().add_patch(draw_obj)
 

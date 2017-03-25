@@ -9,7 +9,7 @@ G_OBJECTS = [] # total list of objects
 class State:
     """ State, which defines object's position and velocity. """
     def __init__(self, pos_x, pos_y, vel_x, vel_y):
-        """ Initialize vectors for position and velocity. """
+        """ Initialize values for position and velocity. """
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.vel_x = vel_x
@@ -28,11 +28,17 @@ class State:
         return np.array([self.vel_x, self.vel_y])
 
 class Derivative:
-    """ Derivative of an object, used to calculate future states. """
+    """ Infinitesemal of an object, used to calculate future states. """
     def __init__(self, dx, dy, du, dv):
-        """ Initialize vectors for infinitesemal position and velocity. """
-        self.d_pos = np.array([dx, dy])
-        self.d_vel = np.array([du, dv])
+        """ Initialize values for infinitesemal position and velocity. """
+        self.dx = dx
+        self.dy = dy
+        self.du = du
+        self.dv = dv
+    
+    def as_vec(self):
+        """ Get infinitesemal in terms of position and velocity. """
+        return np.np.array([self.dx, self.dy, self.du, self.dv])
 
 def get_mass(density, radius):
     """ Calculate mass of object. """
@@ -58,15 +64,15 @@ def get_accel(state):
     """
     accel = np.array([0.0, 0.0])
     for obj_rel in G_OBJECTS:
-        if np.not_equal(state.as_vec(), obj_rel.state.as_vec()):
-            rel = get_pos_rel(state, obj_rel.get_state())
+        if not np.allclose(state.as_vec(), obj_rel.state.as_vec()):
+            rel = get_pos_rel(state, obj_rel.state)
             norm = get_norm(rel)
             accel = np.add(accel, -G * obj_rel.mass * rel / (norm ** 3))
     return accel
 
 def get_deriv(state, deriv, d_t):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
-    new_state = np.add(state.as_vec(), deriv * d_t)
+    new_state = np.add(state.as_vec(), deriv.as_vec() * d_t)
     accel = get_accel(new_state)
     return Derivative(new_state[1], new_state[2], accel[0], accel[1])
 
