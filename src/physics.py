@@ -8,24 +8,24 @@ G_OBJECTS = [] # total list of objects
 
 class State:
     """ State, which defines object's position and velocity. """
-    def __init__(self, pos_x, pos_y, vel_x, vel_y):
+    def __init__(self, x, y, u, v):
         """ Initialize values for position and velocity. """
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.vel_x = vel_x
-        self.vel_y = vel_y
+        self.x = x
+        self.y = y
+        self.u = u
+        self.v = v
 
     def as_vec(self):
         """ Get state in terms of position and velocity. """
-        return np.array([self.pos_x, self.pos_y, self.vel_x, self.vel_y])
+        return np.array([self.x, self.y, self.u, self.v])
 
     def get_pos(self):
         """ Get position vector of state. """
-        return np.array([self.pos_x, self.pos_y])
+        return np.array([self.x, self.y])
 
     def get_vel(self):
         """ Get velocity vector of state. """
-        return np.array([self.vel_x, self.vel_y])
+        return np.array([self.u, self.v])
 
 class Derivative:
     """ Infinitesemal of an object, used to calculate future states. """
@@ -86,4 +86,4 @@ def iterate(state, dt):
     k_4 = get_deriv(state, k_1, dt)
     result = np.add(k_1, np.add(2.0 * np.add(k_2, k_3), k_4)) / 6.0
 
-    return State(result[0], result[1], result[0], result[2])
+    return State(result[0], result[1], result[2], result[3])
