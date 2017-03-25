@@ -4,9 +4,10 @@ Basic object class.
 
 class Object:
     """ Generic object in orbit. """
-    def __init__(self, mass, pos_x, pos_y, vel_x, vel_y):
-        """ Initialize mass, position, velocity. """
+    def __init__(self, mass, radius, pos_x, pos_y, vel_x, vel_y):
+        """ Initialize mass, radius, position, velocity. """
         self.mass = mass
+        self.radius = radius
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.vel_x = vel_x
@@ -15,6 +16,10 @@ class Object:
     def get_mass(self):
         """ Return mass of object. """
         return self.mass
+
+    def get_radius(self):
+        """ Return radius of object. """
+        return self.radius
 
     def get_pos_x(self):
         """ Return x-coordinate of object. """
