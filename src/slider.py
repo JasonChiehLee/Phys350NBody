@@ -1,8 +1,8 @@
 from tkinter import *
 
 class Slider:
-    def __init__(self, root, min, max, length, orientation, row, column):
-        self.slider = Scale(root, from_=min, to=max, length=length, \
+    def __init__(self, root, command, min, max, length, orientation, row, column):
+        self.slider = Scale(root, command=command, from_=min, to=max, length=length, \
             orient=orientation)
         self.slider.grid(row=row, column=column)
 

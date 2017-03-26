@@ -8,3 +8,7 @@ class Text_Entry:
 
     def get_value(self):
         return self.entry.get()
+
+    def set_value(self, value):
+        self.entry.delete(0, 'end')
+        self.entry.insert(0, value)
