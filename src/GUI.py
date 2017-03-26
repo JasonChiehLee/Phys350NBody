@@ -1,62 +1,50 @@
 from tkinter import *
 from plot import *
+from entry import *
+from slider import *
+from button import *
+from label import *
 
 root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
-desc = "The Odd Squad presents: 3 Body Orbital Mechanics"
-description = Label(root,
-    justify=LEFT, text=desc).grid(row=0, column=0, columnspan=2)
+
+def butt_set_mass():
+    for i in range(0,2):
+        mass = int(mass_entries[i].get_mass)
+        print(mass)
+
+def butt_set_v():
+    return 1
+
+masses = [0, 0, 0]
+
+mass_entries = [Text_Entry(root, 2, 0), Text_Entry(root, 2, 1), \
+    Text_Entry(root, 2, 2)]
+
+v_entries = [Text_Entry(root, 6, 0), Text_Entry(root, 6, 1), \
+    Text_Entry(root, 6, 2)]
+
+mass_sliders = [Slider(root, 0, 1000, 150, HORIZONTAL, 3, 0), \
+     Slider(root, 0, 1000, 150, HORIZONTAL, 3, 1), \
+     Slider(root, 0, 1000, 150, HORIZONTAL, 3, 2)]
+
+v_sliders = [Slider(root, 0, 1000, 150, HORIZONTAL, 7, 0), \
+    Slider(root, 0, 1000, 150, HORIZONTAL, 7, 1),
+    Slider(root, 0, 1000, 150, HORIZONTAL, 7, 2)]
+
+butts = [Push_Button(root, 'Set Mass', butt_set_mass, 4, 1), \
+    Push_Button(root, 'Set Velocity', butt_set_v, 8, 1), \
+    Push_Button(root, 'QUIT', quit, 9, 1)]
+
+labels = [Text_Label(root, "The Odd Squad presents: 3 Body Orbital Mechanics", \
+    0, 0, 1, 2), \
+    Text_Label(root, "Mass 1", 1, 0, 1, 1), \
+    Text_Label(root, "Mass 2", 1, 1, 1, 1), \
+    Text_Label(root, "Mass 3", 1, 2, 1, 1), \
+    Text_Label(root, "Velocity 1", 5, 0, 1, 1), \
+    Text_Label(root, "Velocity 2", 5, 1, 1, 1), \
+    Text_Label(root, "Velocity 3", 5, 2, 1, 1) ]
 
 plot1 = Plot(0, 100, 0, 100)
 
-m1_label = Label(root, text="Mass 1").grid(row=1, column=0)
-m1_entry = Entry(root)
-m1_entry.grid(row=2, column=0)
-m1_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-m1_slider.grid(row=3, column=0)
-
-m2_label = Label(root, text="Mass 2").grid(row=1, column=1)
-m2_entry = Entry(root)
-m2_entry.grid(row=2, column=1)
-m2_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-m2_slider.grid(row=3, column=1)
-
-m3_label = Label(root, text="Mass 3").grid(row=1, column=2)
-m3_entry = Entry(root)
-m3_entry.grid(row=2, column=2)
-m3_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-m3_slider.grid(row=3, column=2)
-
-set_mass = Button(root, text='Set Mass')
-set_mass.grid(row=4, column=1)
-
-v1_label = Label(root, text="Velocity 1").grid(row=5, column=0)
-v1_entry = Entry(root)
-v1_entry.grid(row=6, column=0)
-v1_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-v1_slider.grid(row=7, column=0)
-
-v2_label = Label(root, text="Velocity 2").grid(row=5, column=1)
-v2_entry = Entry(root)
-v2_entry.grid(row=6, column=1)
-v2_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-v2_slider.grid(row=7, column=1)
-
-v3_label = Label(root, text="Velocity 3").grid(row=5, column=2)
-v3_entry = Entry(root)
-v3_entry.grid(row=6, column=2)
-v3_slider = Scale(root, from_=0, to= 1000, length=150,
-    orient=HORIZONTAL)
-v3_slider.grid(row=7, column=2)
-
-set_vel = Button(root, text='Set Velocity')
-set_vel.grid(row=8, column=1)
-
-quit_but = Button(root, text='QUIT', command=quit)
-quit_but.grid(row=9, column=1)
 root.mainloop()
