@@ -83,7 +83,7 @@ def iterate(state, dt):
     k_1 = Derivative(state[2], state[3], init_accel[0], init_accel[1])
     k_2 = get_deriv(state, k_1, dt / 2.0)
     k_3 = get_deriv(state, k_2, dt / 2.0)
-    k_4 = get_deriv(state, k_1, dt)
+    k_4 = get_deriv(state, k_3, dt)
     result = np.add(k_1, np.add(2.0 * np.add(k_2, k_3), k_4)) / 6.0
 
     return State(result[0], result[1], result[2], result[3])
