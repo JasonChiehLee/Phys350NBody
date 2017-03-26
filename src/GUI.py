@@ -1,12 +1,6 @@
 from tkinter import *
 from plot import *
 
-import matplotlib
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-# implement the default mpl key bindings
-from matplotlib.backend_bases import key_press_handler
-
 root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
 desc = "The Odd Squad presents: 3 Body Orbital Mechanics"
@@ -14,12 +8,6 @@ description = Label(root,
     justify=LEFT, text=desc).grid(row=0, column=0, columnspan=2)
 
 plot1 = Plot(0, 100, 0, 100)
-fig = plot1.get_figure()
-
-#canvas = FigureCanvasTkAgg(fig, master=root)
-#canvas.show()
-#canvas.get_tk_widget().grid(row=0, column=3)
-
 
 m1_label = Label(root, text="Mass 1").grid(row=1, column=0)
 m1_entry = Entry(root)
