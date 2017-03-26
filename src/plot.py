@@ -20,3 +20,6 @@ class Plot:
     def show(self):
         """ Show/update the plot. """
         plt.show(block=True)
+
+    #def get_fig(self):
+    #    return self.plt.figure()

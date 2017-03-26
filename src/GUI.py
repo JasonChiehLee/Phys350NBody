@@ -1,22 +1,26 @@
 from tkinter import *
-from plot import *
 from entry import *
 from slider import *
 from button import *
 from label import *
+from plot import *
 
 root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
 
+masses = [0, 0, 0]
+vel = [0, 0, 0]
+
 def butt_set_mass():
-    for i in range(0,2):
-        mass = int(mass_entries[i].get_mass)
-        print(mass)
+    for i in range(0,3):
+        masses[i] = int(mass_entries[i].get_entry())
+        mass_sliders[i].set_value(int(mass_entries[i].get_entry()))
+        print(masses[i])
 
 def butt_set_v():
-    return 1
-
-masses = [0, 0, 0]
+    for i in range(0,3):
+        vel[i] = int(v_entries[i].get_entry())
+        print(vel[i])
 
 mass_entries = [Text_Entry(root, 2, 0), Text_Entry(root, 2, 1), \
     Text_Entry(root, 2, 2)]
