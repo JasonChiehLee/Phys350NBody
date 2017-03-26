@@ -56,8 +56,8 @@ def get_accel(state):
     """
     The differential equations needed to be solved for a 3-body problem are:
 
-    d^2(r_1)/dt^2 = (-G * m_2 * (r_1 - r_2) / |r_1 - r_2|) +
-                    (-G * m_3 * (r_1 - r_3) / |r_1 - r_3|)
+    d^2(r_1)/dt^2 = (-G * m_2 * (r_1 - r_2) / |r_1 - r_2|^3) +
+                    (-G * m_3 * (r_1 - r_3) / |r_1 - r_3|^3)
 
     and similar for r_2 and r_3. So, 6 equations (3 vector equations) for a
     2D system. This function returns the vector equation for one of the objects.
@@ -74,7 +74,7 @@ def get_deriv(state, deriv, dt):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
     new_state = np.add(state.as_vec(), deriv.as_vec() * dt)
     accel = get_accel(new_state)
-    return Derivative(new_state[1], new_state[2], accel[0], accel[1])
+    return Derivative(new_state[2], new_state[3], accel[0], accel[1])
 
 def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
