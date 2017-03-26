@@ -1,5 +1,7 @@
-from tkinter import*
-from  import object, physics, plot
+from tkinter import *
+from object import *
+from physics import *
+from plot import *
 
 root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
