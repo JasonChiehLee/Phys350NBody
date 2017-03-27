@@ -8,13 +8,17 @@ import physics as phys
 
 class Object:
     """ Generic object in orbit. """
-    def __init__(self, density, radius, state):
+    def __init__(self, mass, radius, state):
         """ Initialize mass, radius, position, velocity. """
-        self.mass = phys.get_mass(density, radius)
+        self.mass = mass
         self.radius = radius
         self.state = state
         phys.G_OBJECTS.append(self)
 
-    def update_state(self, dt):
+    def update_state(self, state):
+        """ Update state by rewriting. """
+        self.state = state
+
+    def iterate_state(self, dt):
         """ Update state after step of iteration. """
         self.state = phys.iterate(self.state, dt)

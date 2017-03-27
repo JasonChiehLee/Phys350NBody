@@ -40,10 +40,6 @@ class Derivative:
         """ Get infinitesemal in terms of position and velocity. """
         return np.np.array([self.dx, self.dy, self.du, self.dv])
 
-def get_mass(density, radius):
-    """ Calculate mass of object. """
-    return 4.0 / 3 * density * pi * radius ** 3
-
 def get_norm(vec):
     """ Return the magnitude of a vector. """
     return np.linalg.norm(vec)
