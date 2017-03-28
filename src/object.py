@@ -15,8 +15,12 @@ class Object:
         self.state = state
         phys.G_OBJECTS.append(self)
 
+    def update_mass(self, mass):
+        """ Update mass by overwriting. """
+        self.mass = mass
+
     def update_state(self, state):
-        """ Update state by rewriting. """
+        """ Update state by overwriting. """
         self.state = state
 
     def iterate_state(self, dt):
