@@ -17,7 +17,8 @@ class Object:
 
     def __str__(self):
         """Return string representation of Object"""
-        return 'Mass: ' + str(self.mass) + '. Radius: ' + str(self.radius) + '. State: ' + self.state.__str__()
+        return 'Mass: ' + str(self.mass) + '. Radius: ' + str(self.radius) + \
+               '. State: ' + self.state.__str__()
 
     def update_mass(self, mass):
         """ Update mass by overwriting. """

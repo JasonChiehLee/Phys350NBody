@@ -21,6 +21,10 @@ class Plot:
         """ Show/update the plot. """
         plt.show(block=True)
 
+    def clear(self):
+        """ Clear plot. """
+        plt.cla()
+
     def get_plot(self):
         """TEST FUNCTION _ BREAKS ENCAPSULATION"""
         return plt

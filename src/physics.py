@@ -1,7 +1,7 @@
 """ Generic physics functions. """
 
-from math import pi
 from scipy.constants import gravitational_constant as G
+
 import numpy as np
 
 G_OBJECTS = [] # total list of objects
@@ -50,7 +50,10 @@ def get_norm(vec):
 
 def get_pos_rel(state_1, state_2):
     """ Calculate the position vector between two objects. """
-    return np.subtract(state_1.get_pos(), state_2.get_pos())
+    if np.allclose(state_1.get_pos(), state_2.get_pos()):
+        return [0.0, 0.0]
+    else:
+        return np.subtract(state_1.get_pos(), state_2.get_pos())
 
 def get_accel(state):
     """
@@ -64,18 +67,19 @@ def get_accel(state):
     """
     accel = np.array([0.0, 0.0])
     for obj_rel in G_OBJECTS:
-        if not np.allclose(state.as_vec(), obj_rel.state.as_vec()):
+        if not np.array_equal(state.as_vec(), obj_rel.state.as_vec()):
             rel = get_pos_rel(state, obj_rel.state)
             norm = get_norm(rel)
-            accel = np.add(accel, -G * obj_rel.mass * rel / (norm ** 3))
+            if norm > 10 ** -8:
+                accel = np.add(accel, -G * obj_rel.mass * rel / (norm ** 3))
     return accel
 
 def get_deriv(state, deriv, dt):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
     # @TODO: Is there a better way to declare states when we already have the vector?
     new_state_vec = np.add(state.as_vec(), deriv.as_vec() * dt)
-    new_state = State(new_state_vec[0], new_state_vec[1], new_state_vec[2], new_state_vec[3])
-    accel = get_accel(new_state)
+    accel = get_accel(State(new_state_vec[0], new_state_vec[1], \
+                            new_state_vec[2], new_state_vec[3]))
     return Derivative(new_state_vec[2], new_state_vec[3], accel[0], accel[1])
 
 def iterate(state, dt):
@@ -86,6 +90,8 @@ def iterate(state, dt):
     k_2 = get_deriv(state, k_1, dt / 2.0)
     k_3 = get_deriv(state, k_2, dt / 2.0)
     k_4 = get_deriv(state, k_3, dt)
-    result = np.add(k_1.as_vec(), np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0
+    result = np.add(k_1.as_vec(), \
+                    np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), \
+                    k_4.as_vec())) / 6.0
 
     return State(result[0], result[1], result[2], result[3])
