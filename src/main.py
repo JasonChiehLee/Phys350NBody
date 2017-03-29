@@ -21,6 +21,14 @@ PLOT.place_obj(OBJ_3, COLOUR_3)
 print(phys.get_accel(OBJ_1.state))
 print(2 * phys.get_accel(OBJ_1.state))
 
+# @TODO: Something is going wrong with the iteration, have to look into this
+dt = 0.01
 
-
-
+for i in range(0,25):
+    OBJ_1.iterate_state(dt)
+    print(OBJ_1.__str__())
+    OBJ_2.iterate_state(dt)
+    print(OBJ_2.__str__())
+    OBJ_3.iterate_state(dt)
+    print(OBJ_3.__str__())
+    PLOT.get_plot().pause(0.5)

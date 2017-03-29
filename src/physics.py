@@ -15,6 +15,10 @@ class State:
         self.u = u
         self.v = v
 
+    def __str__(self):
+        """Return string representation of state"""
+        return self.as_vec().__str__()
+
     def as_vec(self):
         """ Get state in terms of position and velocity. """
         return np.array([self.x, self.y, self.u, self.v])
@@ -38,7 +42,7 @@ class Derivative:
 
     def as_vec(self):
         """ Get infinitesemal in terms of position and velocity. """
-        return np.np.array([self.dx, self.dy, self.du, self.dv])
+        return np.array([self.dx, self.dy, self.du, self.dv])
 
 def get_norm(vec):
     """ Return the magnitude of a vector. """
@@ -68,18 +72,20 @@ def get_accel(state):
 
 def get_deriv(state, deriv, dt):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
-    new_state = np.add(state.as_vec(), deriv.as_vec() * dt)
+    # @TODO: Is there a better way to declare states when we already have the vector?
+    new_state_vec = np.add(state.as_vec(), deriv.as_vec() * dt)
+    new_state = State(new_state_vec[0], new_state_vec[1], new_state_vec[2], new_state_vec[3])
     accel = get_accel(new_state)
-    return Derivative(new_state[2], new_state[3], accel[0], accel[1])
+    return Derivative(new_state_vec[2], new_state_vec[3], accel[0], accel[1])
 
 def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
     init_accel = get_accel(state)
 
-    k_1 = Derivative(state[2], state[3], init_accel[0], init_accel[1])
+    k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], init_accel[0], init_accel[1])
     k_2 = get_deriv(state, k_1, dt / 2.0)
     k_3 = get_deriv(state, k_2, dt / 2.0)
     k_4 = get_deriv(state, k_3, dt)
-    result = np.add(k_1, np.add(2.0 * np.add(k_2, k_3), k_4)) / 6.0
+    result = np.add(k_1.as_vec(), np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0
 
     return State(result[0], result[1], result[2], result[3])
