@@ -21,5 +21,8 @@ class Plot:
         """ Show/update the plot. """
         plt.show(block=True)
 
+    def get_plot(self):
+        """TEST FUNCTION _ BREAKS ENCAPSULATION"""
+        return plt
     #def get_fig(self):
     #    return self.plt.figure()
