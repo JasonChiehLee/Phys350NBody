@@ -91,7 +91,6 @@ def iterate(state, dt):
     k_3 = get_deriv(state, k_2, dt / 2.0)
     k_4 = get_deriv(state, k_3, dt)
     result = np.add(k_1.as_vec(), \
-                    np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), \
-                    k_4.as_vec())) / 6.0
+                    np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0
 
     return State(result[0], result[1], result[2], result[3])

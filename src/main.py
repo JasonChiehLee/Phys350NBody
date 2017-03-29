@@ -14,9 +14,9 @@ OBJ_1 = Object((5.97 * 10 ** 24), AU / 50.0, phys.State(AU, 0.0, 0.0, (3 * 10 **
 OBJ_2 = Object((1.99 * 10 ** 30), AU / 10.0, phys.State(0.0, 0.0, 0.0, 0.0))
 #OBJ_3 = Object(1.0 * 10 ** 16, 10 ** 17, phys.State(-2.5 * 10 ** 17, -2.0 * 10 ** 17, 0.0, -3.0 * 10 ** 8))
 
-COLOUR_1 = 'red'
-COLOUR_2 = 'green'
-COLOUR_3 = 'blue'
+COLOUR_1 = 'blue'
+COLOUR_2 = 'orange'
+COLOUR_3 = 'green'
 
 PLOT.place_obj(OBJ_1, COLOUR_1)
 PLOT.place_obj(OBJ_2, COLOUR_2)
@@ -27,7 +27,7 @@ PLOT.place_obj(OBJ_2, COLOUR_2)
     print(obj.__str__())'''
 
 # @TODO: Something is going wrong with the iteration, have to look into this
-dt = 10 ** -6
+dt = 10 ** -2
 
 for i in range(0, 100):
     OBJ_1.iterate_state(dt)
