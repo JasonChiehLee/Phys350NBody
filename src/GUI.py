@@ -9,8 +9,8 @@ root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
 
 mass_list = [0, 0, 0]
-vel_list = [0, 0, 0, 0, 0, 0]
-xy = [0, 0, 0, 0, 0, 0]
+vel_list = [0, 0, 0, 0, 0, 0] """[u1, v1, ...] """
+xy = [0, 0, 0, 0, 0, 0] """[x1, y1, ...] """
 
 def butt_set_mass():
     for i in range(0,3):
@@ -91,12 +91,12 @@ labels = [Text_Label(root, "The Odd Squad Presents: 3 Body Orbital Mechanics", \
     Text_Label(root, "Mass 1", 1, 0, 1, 1), \
     Text_Label(root, "Mass 2", 1, 1, 1, 1), \
     Text_Label(root, "Mass 3", 1, 2, 1, 1), \
-    Text_Label(root, "x-Velocity", 5, 0, 1, 1), \
-    Text_Label(root, "y-Velocity", 8, 0, 1, 1), \
-    Text_Label(root, "x-Velocity", 5, 1, 1, 1), \
-    Text_Label(root, "y-Velocity", 8, 1, 1, 1), \
-    Text_Label(root, "x-Velocity", 5, 2, 1, 1), \
-    Text_Label(root, "y-Velocity", 8, 2, 1, 1), \
+    Text_Label(root, "x1-velocity", 5, 0, 1, 1), \
+    Text_Label(root, "y1-velocity", 8, 0, 1, 1), \
+    Text_Label(root, "x2-velocity", 5, 1, 1, 1), \
+    Text_Label(root, "y2-velocity", 8, 1, 1, 1), \
+    Text_Label(root, "x3-velocity", 5, 2, 1, 1), \
+    Text_Label(root, "y3-velocity", 8, 2, 1, 1), \
     Text_Label(root, "x1", 12, 0, 1, 1), \
     Text_Label(root, "y1", 15, 0, 1, 1), \
     Text_Label(root, "x2", 12, 1, 1, 1), \
