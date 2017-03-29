@@ -9,8 +9,10 @@ root = Tk()
 root.wm_title("PHYS 350: 3 Body Orbital Mechanics")
 
 mass_list = [0, 0, 0]
-vel_list = [0, 0, 0, 0, 0, 0] """[u1, v1, ...] """
-xy = [0, 0, 0, 0, 0, 0] """[x1, y1, ...] """
+vel_list = [0, 0, 0, 0, 0, 0]
+"""[u1, v1, ...] """
+xy = [0, 0, 0, 0, 0, 0]
+"""[x1, y1, ...] """
 
 def butt_set_mass():
     for i in range(0,3):
