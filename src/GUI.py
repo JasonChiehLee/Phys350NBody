@@ -42,6 +42,10 @@ def slider_set_xy(event):
         xy[i] = xy_sliders[i].get_value()
         xy_entries[i].set_value(xy[i])
 
+def butt_start():
+    """Not sure what to do here yet.  Probably call main? For now plot"""
+    plot = Plot(-100, 100, -100, 100)
+
 mass_entries = [Text_Entry(root, 0, 2, 0), \
     Text_Entry(root, 0, 2, 1), \
     Text_Entry(root, 0, 2, 2)]
@@ -64,7 +68,8 @@ xy_sliders = [Slider(root, slider_set_xy, 0, 1000, 150, HORIZONTAL, 11, 0), \
 
 butts = [Push_Button(root, 'Set Mass', butt_set_mass, 4, 1), \
     Push_Button(root, 'Set Velocity', butt_set_vel, 8, 1), \
-    Push_Button(root, 'Set Coordinates', butt_set_xy, 12, 1), \
+    Push_Button(root, 'Set Coordinates', butt_set_xy, 11, 2), \
+    Push_Button(root, 'Start', butt_start, 12, 1), \
     Push_Button(root, 'QUIT', quit, 13, 1)]
 
 labels = [Text_Label(root, "The Odd Squad presents: 3 Body Orbital Mechanics", \
