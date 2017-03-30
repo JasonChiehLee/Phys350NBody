@@ -4,8 +4,8 @@ from object import Object
 from plot import Plot
 import physics as phys
 from scipy.constants import astronomical_unit as AU
-from scipy.constants import speed_of_light as C
-import time
+#from scipy.constants import speed_of_light as C
+#import time
 
 PLOT = Plot(-AU * 2, AU * 2, -AU * 2, AU * 2)
 

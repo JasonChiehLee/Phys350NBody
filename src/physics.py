@@ -89,16 +89,16 @@ def get_deriv(state, deriv, dt):
     # NOTE: state parameter is mutated by this function!!!
     # @TODO: Is there a better way to declare states when we already have the vector?
     new_state_vec = np.add(state.as_vec(), deriv.as_vec() * dt)
-    new_state = State(new_state_vec[0], new_state_vec[1], \
+    state = State(new_state_vec[0], new_state_vec[1], \
                       new_state_vec[2], new_state_vec[3], state.tag)
-    accel = get_accel(new_state)
-    state = new_state
+    accel = get_accel(state)
     return Derivative(new_state_vec[2], new_state_vec[3], \
                       accel[0], accel[1])
 
 def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
-    new_state = state
+    new_state = State(state.as_vec()[0], state.as_vec()[1], \
+                      state.as_vec()[2], state.as_vec()[3], state.tag)
     init_accel = get_accel(new_state)
 
     k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], \
