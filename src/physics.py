@@ -8,12 +8,13 @@ G_OBJECTS = [] # total list of objects
 
 class State:
     """ State, which defines object's position and velocity. """
-    def __init__(self, x, y, u, v):
+    def __init__(self, x, y, u, v, tag):
         """ Initialize values for position and velocity. """
         self.x = x
         self.y = y
         self.u = u
         self.v = v
+        self.tag = tag
 
     def __str__(self):
         """Return string representation of state"""
@@ -46,14 +47,20 @@ class Derivative:
 
 def get_norm(vec):
     """ Return the magnitude of a vector. """
+    # DEBUG
+    #print(np.linalg.norm(vec))
+    #
     return np.linalg.norm(vec)
 
 def get_pos_rel(state_1, state_2):
     """ Calculate the position vector between two objects. """
+    # DEBUG
+    #print(np.add(state_1.get_pos(), -1.0 * state_2.get_pos()).__str__())
+    #
     if np.allclose(state_1.get_pos(), state_2.get_pos()):
         return [0.0, 0.0]
     else:
-        return np.subtract(state_1.get_pos(), state_2.get_pos())
+        return np.add(state_1.get_pos(), -1.0 * state_2.get_pos())
 
 def get_accel(state):
     """
@@ -67,30 +74,39 @@ def get_accel(state):
     """
     accel = np.array([0.0, 0.0])
     for obj_rel in G_OBJECTS:
-        if not np.array_equal(state.as_vec(), obj_rel.state.as_vec()):
+        if state.tag != obj_rel.state.tag:
+            # DEBUG
+            #print(obj_rel.__str__())
+            #
             rel = get_pos_rel(state, obj_rel.state)
             norm = get_norm(rel)
-            if norm > 10 ** -8:
+            if norm > 1.0e-10:
                 accel = np.add(accel, -G * obj_rel.mass * rel / (norm ** 3))
     return accel
 
 def get_deriv(state, deriv, dt):
     """ Obtain derivative for steps of RK4 iteration (see function below). """
+    # NOTE: state parameter is mutated by this function!!!
     # @TODO: Is there a better way to declare states when we already have the vector?
     new_state_vec = np.add(state.as_vec(), deriv.as_vec() * dt)
-    accel = get_accel(State(new_state_vec[0], new_state_vec[1], \
-                            new_state_vec[2], new_state_vec[3]))
-    return Derivative(new_state_vec[2], new_state_vec[3], accel[0], accel[1])
+    new_state = State(new_state_vec[0], new_state_vec[1], \
+                      new_state_vec[2], new_state_vec[3], state.tag)
+    accel = get_accel(new_state)
+    state = new_state
+    return Derivative(new_state_vec[2], new_state_vec[3], \
+                      accel[0], accel[1])
 
 def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
-    init_accel = get_accel(state)
+    new_state = state
+    init_accel = get_accel(new_state)
 
-    k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], init_accel[0], init_accel[1])
-    k_2 = get_deriv(state, k_1, dt / 2.0)
-    k_3 = get_deriv(state, k_2, dt / 2.0)
-    k_4 = get_deriv(state, k_3, dt)
-    result = np.add(k_1.as_vec(), \
-                    np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0
+    k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], \
+                     init_accel[0], init_accel[1])
+    k_2 = get_deriv(new_state, k_1, dt / 2.0)
+    k_3 = get_deriv(new_state, k_2, dt / 2.0)
+    k_4 = get_deriv(new_state, k_3, dt)
+    result = np.add(new_state.as_vec(), \
+        np.add(k_1.as_vec(), np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0)
 
-    return State(result[0], result[1], result[2], result[3])
+    return State(result[0], result[1], result[2], result[3], state.tag)
