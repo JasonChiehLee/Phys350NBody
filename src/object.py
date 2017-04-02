@@ -1,7 +1,5 @@
 """
 Basic object class.
-
-Some inspiration gathered from http://www.thanassis.space/gravity.html
 """
 
 import physics as phys

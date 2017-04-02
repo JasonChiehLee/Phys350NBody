@@ -1,10 +1,16 @@
 """ Generic physics functions. """
 
-from scipy.constants import gravitational_constant as G
-
+from scipy.constants import gravitational_constant
 import numpy as np
 
 G_OBJECTS = [] # total list of objects
+
+# Scaling and constants:
+D_T = 1.0e-6
+GRID_SIZE = 1.0e4
+MASS_SCALING = 1.0e4
+RADIUS = GRID_SIZE / 100.0
+G = gravitational_constant * 5.0e12
 
 class State:
     """ State, which defines object's position and velocity. """
