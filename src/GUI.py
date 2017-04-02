@@ -58,9 +58,9 @@ class GUI:
 
         self.labels = [Text_Label(root, "The Odd Squad Presents: 3 Body Orbital Mechanics", \
             0, 0, 1, 2), \
-            Text_Label(root, "Mass 1", 1, 0, 1, 1), \
-            Text_Label(root, "Mass 2", 1, 1, 1, 1), \
-            Text_Label(root, "Mass 3", 1, 2, 1, 1), \
+            Text_Label(root, "Mass 1 (Blue)", 1, 0, 1, 1), \
+            Text_Label(root, "Mass 2 (Red)", 1, 1, 1, 1), \
+            Text_Label(root, "Mass 3 (Orange)", 1, 2, 1, 1), \
             Text_Label(root, "x1-velocity", 5, 0, 1, 1), \
             Text_Label(root, "y1-velocity", 8, 0, 1, 1), \
             Text_Label(root, "x2-velocity", 5, 1, 1, 1), \
