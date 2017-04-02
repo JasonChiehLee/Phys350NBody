@@ -1,18 +1,23 @@
 """ Test current program functionality. """
-
+from tkinter import *
 from object import Object
 from plot import Plot
 import physics as phys
+from GUI import *
 #from scipy.constants import astronomical_unit as AU
 
-PLOT = Plot(-phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE)
+root = Tk()
+gui = GUI(root)
+root.mainloop()
 
-OBJ_1 = Object(5.0 * phys.MASS_SCALING, phys.RADIUS, \
-               phys.State(3.0e3, 0.0e3, -2.0e1, 1.0e2, 1))
-OBJ_2 = Object(5.0 * phys.MASS_SCALING, phys.RADIUS, \
-               phys.State(0.0e3, 0.0e3, 6.0e1, -6.0e1, 2))
-OBJ_3 = Object(5.0 * phys.MASS_SCALING, phys.RADIUS, \
-               phys.State(2.0e3, -4.0e3, -1.0e2, 1.0e2, 3))
+PLOT = gui.butt_start()
+
+OBJ_1 = Object(gui.mass_list[0] * phys.MASS_SCALING, phys.RADIUS, \
+               phys.State(gui.xy[0], gui.xy[1], gui.vel_list[0], gui.vel_list[1], 1))
+OBJ_2 = Object(gui.mass_list[1] * phys.MASS_SCALING, phys.RADIUS, \
+               phys.State(gui.xy[2], gui.xy[3], gui.vel_list[2], gui.vel_list[3], 2))
+OBJ_3 = Object(gui.mass_list[2] * phys.MASS_SCALING, phys.RADIUS, \
+               phys.State(gui.xy[4], gui.xy[5], gui.vel_list[4], gui.vel_list[5], 3))
 
 COLOUR_1 = 'blue'
 COLOUR_2 = 'red'
