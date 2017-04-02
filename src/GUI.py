@@ -77,17 +77,17 @@ class GUI:
 
     def butt_set_mass(self):
         for i in range(0,3):
-            self.mass_list[i] = self.mass_entries[i].get_value()
+            self.mass_list[i] = int(self.mass_entries[i].get_value())
             self.mass_sliders[i].set_value(self.mass_list[i])
 
     def butt_set_vel(self):
         for i in range(0,6):
-            self.vel_list[i] = self.vel_entries[i].get_value()
+            self.vel_list[i] = int(self.vel_entries[i].get_value())
             self.vel_sliders[i].set_value(self.vel_list[i])
 
     def butt_set_xy(self):
         for i in range(0,6):
-            self.xy[i] = self.xy_entries[i].get_value()
+            self.xy[i] = int(self.xy_entries[i].get_value())
             self.xy_sliders[i].set_value(self.xy[i])
 
     def slider_set_mass(self, event):
@@ -111,10 +111,8 @@ class GUI:
 """
     def get_mass(self):
         return self.mass_list
-
     def get_velocity(self):
         return self.vel_list
-
     def get_coordinates(self):
         return self.xy
 """
