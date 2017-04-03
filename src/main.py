@@ -26,7 +26,7 @@ while True:
 
 
     dt = phys.D_T
-    print ("%s \n %s \n %s" % (gui.xy, gui.mass_list, gui.vel_list))
+
     for i in range(0, 100):
         PLOT.clear_objs()
         for j in range(0,len(objectList)):
