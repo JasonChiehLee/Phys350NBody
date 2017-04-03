@@ -11,9 +11,9 @@ vel_list = [-2.0e1, 1.0e2, 6.0e1, -6.0e1, -1.0e2, 1.0e2]
 """[u1, v1, ...] """
 xy = [3e3, 0e3, 0e3, 0e3, 2e3, -4e3]
 """[x1, y1, ...] """
-num_pts = 5
-dt_start = 10e-6
-err_pts = 20
+num_pts = 10
+dt_start = 10e-8
+err_pts = 50
 dt = []
 iter_list = np.zeros((num_pts, num_pts*err_pts), float)
 
@@ -38,6 +38,6 @@ ax1 = fig.add_subplot(111)
 
 for i in range(0, num_pts):
 	temp = iter_list[i, 0:i*err_pts]
-	ax1.plt.plot(np.linspace(0 , dt_start*i*(num_pts-1), num_pts), temp)
+	ax1.plot(np.linspace(0 , dt_start*i*(err_pts-1), i*err_pts), temp)
 
 plt.show()
