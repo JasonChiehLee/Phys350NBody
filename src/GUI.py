@@ -26,7 +26,7 @@ class GUI:
         self.notebook.add(self.f2, text='Mass 2')
         self.notebook.add(self.f3, text='Mass 3')
 
-        self.notebook.grid(row=1, column=0, rowspan=15)
+        self.notebook.grid(row=1, column=0, rowspan=15, pady=10)
 
         self.mass_entries = [Text_Entry(self.f1, self.mass_list[0], 2, 0, 5, 0), \
             Text_Entry(self.f2, self.mass_list[1], 2, 0, 5, 0), \
