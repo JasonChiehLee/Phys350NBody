@@ -31,30 +31,25 @@ class GUI:
             Text_Entry(root, self.xy[2], 11, 1), Text_Entry(root, self.xy[3], 14, 1), \
             Text_Entry(root, self.xy[4], 11, 2), Text_Entry(root, self.xy[5], 14, 2)]
 
-        self.mass_sliders = [Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 150, HORIZONTAL, 3, 0), \
-             Slider(root, self.slider_set_mass, self.mass_list[1], 0, 20, 150, HORIZONTAL, 3, 1), \
-             Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 150, HORIZONTAL, 3, 2)]
+        self.mass_sliders = [Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 100, HORIZONTAL, 3, 0), \
+             Slider(root, self.slider_set_mass, self.mass_list[1], 0, 20, 100, HORIZONTAL, 3, 1), \
+             Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 100, HORIZONTAL, 3, 2)]
 
-        self.vel_sliders = [Slider(root, self.slider_set_vel, self.vel_list[0], -200, 200, 150, HORIZONTAL, 6, 0), \
-            Slider(root, self.slider_set_vel, self.vel_list[1], -200, 200, 150, HORIZONTAL, 9, 0), \
-            Slider(root, self.slider_set_vel, self.vel_list[2], -200, 200, 150, HORIZONTAL, 6, 1), \
-            Slider(root, self.slider_set_vel, self.vel_list[3], -200, 200, 150, HORIZONTAL, 9, 1), \
-            Slider(root, self.slider_set_vel, self.vel_list[4], -200, 200, 150, HORIZONTAL, 6, 2), \
-            Slider(root, self.slider_set_vel, self.vel_list[5], -200, 200, 150, HORIZONTAL, 9, 2) ]
+        self.vel_sliders = [Slider(root, self.slider_set_vel, self.vel_list[0], -200, 200, 100, HORIZONTAL, 6, 0), \
+            Slider(root, self.slider_set_vel, self.vel_list[1], -200, 200, 100, HORIZONTAL, 9, 0), \
+            Slider(root, self.slider_set_vel, self.vel_list[2], -200, 200, 100, HORIZONTAL, 6, 1), \
+            Slider(root, self.slider_set_vel, self.vel_list[3], -200, 200, 100, HORIZONTAL, 9, 1), \
+            Slider(root, self.slider_set_vel, self.vel_list[4], -200, 200, 100, HORIZONTAL, 6, 2), \
+            Slider(root, self.slider_set_vel, self.vel_list[5], -200, 200, 100, HORIZONTAL, 9, 2) ]
 
-        self.xy_sliders = [Slider(root, self.slider_set_xy, self.xy[0], -5000, 5000, 150, HORIZONTAL, 12, 0), \
-            Slider(root, self.slider_set_xy, self.xy[1], -5000, 5000, 150, HORIZONTAL, 15, 0), \
-            Slider(root, self.slider_set_xy, self.xy[2], -5000, 5000, 150, HORIZONTAL, 12, 1), \
-            Slider(root, self.slider_set_xy, self.xy[3], -5000, 5000, 150, HORIZONTAL, 15, 1), \
-            Slider(root, self.slider_set_xy, self.xy[4], -5000, 5000, 150, HORIZONTAL, 12, 2), \
-            Slider(root, self.slider_set_xy, self.xy[5], -5000, 5000, 150, HORIZONTAL, 15, 2 )
+        self.xy_sliders = [Slider(root, self.slider_set_xy, self.xy[0], -5000, 5000, 100, HORIZONTAL, 12, 0), \
+            Slider(root, self.slider_set_xy, self.xy[1], -5000, 5000, 100, HORIZONTAL, 15, 0), \
+            Slider(root, self.slider_set_xy, self.xy[2], -5000, 5000, 100, HORIZONTAL, 12, 1), \
+            Slider(root, self.slider_set_xy, self.xy[3], -5000, 5000, 100, HORIZONTAL, 15, 1), \
+            Slider(root, self.slider_set_xy, self.xy[4], -5000, 5000, 100, HORIZONTAL, 12, 2), \
+            Slider(root, self.slider_set_xy, self.xy[5], -5000, 5000, 100, HORIZONTAL, 15, 2 )
             ]
 
-        """self.butts = [Push_Button(root, 'Set Mass', self.butt_set_mass, 4, 1), \
-            Push_Button(root, 'Set Velocity', self.butt_set_vel, 11, 1), \
-            Push_Button(root, 'Set Coordinates', self.butt_set_xy, 18, 1), \
-            Push_Button(root, 'Start', self.butt_start, 19, 1), \
-            Push_Button(root, 'QUIT', quit, 20, 1)]"""
         self.butts = [Push_Button(root, 'Set ICs', self.butt_set, 16, 1), \
             Push_Button(root, 'Start', self.butt_start, 17, 1), \
             Push_Button(root, 'QUIT', quit, 18, 1)]
