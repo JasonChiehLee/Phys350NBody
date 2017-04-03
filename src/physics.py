@@ -81,7 +81,7 @@ def get_accel(state):
     accel = np.array([0.0, 0.0])
     for obj_rel in G_OBJECTS:
         if state.tag == obj_rel.state.tag:
-            if obj_rel.mass == 0:
+            if obj_rel.mass == 0.0:
                 return np.array([0.0, 0.0])
         else:
             # DEBUG
