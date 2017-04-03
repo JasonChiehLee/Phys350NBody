@@ -50,12 +50,14 @@ class GUI:
             Slider(root, self.slider_set_xy, self.xy[5], -5000, 5000, 150, HORIZONTAL, 17, 2 )
             ]
 
-        self.butts = [Push_Button(root, 'Set Mass', self.butt_set_mass, 4, 1), \
+        """self.butts = [Push_Button(root, 'Set Mass', self.butt_set_mass, 4, 1), \
             Push_Button(root, 'Set Velocity', self.butt_set_vel, 11, 1), \
             Push_Button(root, 'Set Coordinates', self.butt_set_xy, 18, 1), \
             Push_Button(root, 'Start', self.butt_start, 19, 1), \
+            Push_Button(root, 'QUIT', quit, 20, 1)]"""
+        self.butts = [Push_Button(root, 'Set ICs', self.butt_set, 18, 1), \
+            Push_Button(root, 'Start', self.butt_start, 19, 1), \
             Push_Button(root, 'QUIT', quit, 20, 1)]
-
         self.labels = [Text_Label(root, "The Odd Squad Presents: 3 Body Orbital Mechanics", \
             0, 0, 1, 2), \
             Text_Label(root, "Mass 1 (Blue)", 1, 0, 1, 1), \
@@ -72,21 +74,16 @@ class GUI:
             Text_Label(root, "x2", 12, 1, 1, 1), \
             Text_Label(root, "y2", 15, 1, 1, 1), \
             Text_Label(root, "x3", 12, 2, 1, 1), \
-            Text_Label(root, "y3", 15, 2, 1, 1)
-            ]
+            Text_Label(root, "y3", 15, 2, 1, 1)]
 
-    def butt_set_mass(self):
+    def butt_set(self):
         for i in range(0,3):
             self.mass_list[i] = int(self.mass_entries[i].get_value())
             self.mass_sliders[i].set_value(self.mass_list[i])
 
-    def butt_set_vel(self):
         for i in range(0,6):
             self.vel_list[i] = int(self.vel_entries[i].get_value())
             self.vel_sliders[i].set_value(self.vel_list[i])
-
-    def butt_set_xy(self):
-        for i in range(0,6):
             self.xy[i] = int(self.xy_entries[i].get_value())
             self.xy_sliders[i].set_value(self.xy[i])
 
@@ -108,11 +105,3 @@ class GUI:
     def butt_start(self):
         self.root.quit()
         return Plot(-phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE)
-"""
-    def get_mass(self):
-        return self.mass_list
-    def get_velocity(self):
-        return self.vel_list
-    def get_coordinates(self):
-        return self.xy
-"""
