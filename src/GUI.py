@@ -28,24 +28,24 @@ class GUI:
 
         self.notebook.grid(row=1, column=0, rowspan=15)
 
-        self.mass_entries = [Text_Entry(self.f1, self.mass_list[0], 2, 0, 0, 0), \
-            Text_Entry(self.f2, self.mass_list[1], 2, 0, 0, 0), \
-            Text_Entry(self.f3, self.mass_list[2], 2, 0, 0, 0)]
+        self.mass_entries = [Text_Entry(self.f1, self.mass_list[0], 2, 0, 5, 0), \
+            Text_Entry(self.f2, self.mass_list[1], 2, 0, 5, 0), \
+            Text_Entry(self.f3, self.mass_list[2], 2, 0, 5, 0)]
 
-        self.vel_entries = [Text_Entry(self.f1, self.vel_list[0], 5, 0, 0, 0), \
-            Text_Entry(self.f1, self.vel_list[1], 8, 0, 0, 0), \
-            Text_Entry(self.f2, self.vel_list[2], 5, 0, 0, 0), \
-            Text_Entry(self.f2, self.vel_list[3], 8, 0, 0, 0), \
-            Text_Entry(self.f3, self.vel_list[4], 5, 0, 0, 0), \
-            Text_Entry(self.f3, self.vel_list[5], 8, 0, 0, 0)
+        self.vel_entries = [Text_Entry(self.f1, self.vel_list[0], 5, 0, 5, 0), \
+            Text_Entry(self.f1, self.vel_list[1], 8, 0, 5, 0), \
+            Text_Entry(self.f2, self.vel_list[2], 5, 0, 5, 0), \
+            Text_Entry(self.f2, self.vel_list[3], 8, 0, 5, 0), \
+            Text_Entry(self.f3, self.vel_list[4], 5, 0, 5, 0), \
+            Text_Entry(self.f3, self.vel_list[5], 8, 0, 5, 0)
             ]
 
-        self.xy_entries = [Text_Entry(self.f1, self.xy[0], 11, 0, 0, 0), \
-            Text_Entry(self.f1, self.xy[1], 14, 0, 0, 0), \
-            Text_Entry(self.f2, self.xy[2], 11, 0, 0, 0), \
-            Text_Entry(self.f2, self.xy[3], 14, 0, 0, 0), \
-            Text_Entry(self.f3, self.xy[4], 11, 0, 0, 0), \
-            Text_Entry(self.f3, self.xy[5], 14, 0, 0, 0)]
+        self.xy_entries = [Text_Entry(self.f1, self.xy[0], 11, 0, 5, 0), \
+            Text_Entry(self.f1, self.xy[1], 14, 0, 5, 0), \
+            Text_Entry(self.f2, self.xy[2], 11, 0, 5, 0), \
+            Text_Entry(self.f2, self.xy[3], 14, 0, 5, 0), \
+            Text_Entry(self.f3, self.xy[4], 11, 0, 5, 0), \
+            Text_Entry(self.f3, self.xy[5], 14, 0, 5, 0)]
 
         self.mass_sliders = [Slider(self.f1, self.slider_set_mass, self.mass_list[0], 0, 20, 100, HORIZONTAL, 3, 0, 0, 0), \
              Slider(self.f2, self.slider_set_mass, self.mass_list[1], 0, 20, 100, HORIZONTAL, 3, 0, 0, 0), \
