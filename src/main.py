@@ -33,6 +33,7 @@ for i in range(0, 10 ** 6):
     OBJ_1.iterate_state(dt)
     OBJ_2.iterate_state(dt)
     OBJ_3.iterate_state(dt)
+    PLOT.clear_objs()
     PLOT.place_obj(OBJ_1, COLOUR_1)
     PLOT.place_obj(OBJ_2, COLOUR_2)
     PLOT.place_obj(OBJ_3, COLOUR_3)
