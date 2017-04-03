@@ -88,6 +88,9 @@ class GUI:
             Text_Label(self.f3, "x3", 10, 0, 1, 1, 0, 0), \
             Text_Label(self.f3, "y3", 13, 0, 1, 1, 0, 0)]
 
+        self.var = IntVar()
+        coll_check = Checkbutton(root, text='Collision', variable=self.var, command=self.check_collision)
+        coll_check.grid(row=4, column=1)
     def butt_set(self):
         for i in range(0,3):
             self.mass_list[i] = int(self.mass_entries[i].get_value())
@@ -117,3 +120,7 @@ class GUI:
     def butt_start(self):
         self.root.quit()
         return Plot(-phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE)
+
+    def check_collision(self):
+        print(self.var.get())
+        return self.var.get()
