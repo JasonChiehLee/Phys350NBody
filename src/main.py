@@ -12,6 +12,9 @@ while True:
     root.destroy()
     PLOT = gui.butt_start()
 
+    """To check for collision, call gui.collision_status().  If = 1, then
+    collision is selected"""
+
     objectList = []
     phys.G_OBJECTS.clear()
     for i in range(0,3):
