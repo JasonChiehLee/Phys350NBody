@@ -20,34 +20,34 @@ class GUI:
             Text_Entry(root, self.mass_list[1], 2, 1), \
             Text_Entry(root, self.mass_list[2], 2, 2)]
 
-        self.vel_entries = [Text_Entry(root, self.vel_list[0], 6, 0), Text_Entry(root, self.vel_list[1], 9, 0), \
-            Text_Entry(root, self.vel_list[2], 6, 1), \
-            Text_Entry(root, self.vel_list[3], 9, 1), \
-            Text_Entry(root, self.vel_list[4], 6, 2), \
-            Text_Entry(root, self.vel_list[5], 9, 2)
+        self.vel_entries = [Text_Entry(root, self.vel_list[0], 5, 0), Text_Entry(root, self.vel_list[1], 8, 0), \
+            Text_Entry(root, self.vel_list[2], 5, 1), \
+            Text_Entry(root, self.vel_list[3], 8, 1), \
+            Text_Entry(root, self.vel_list[4], 5, 2), \
+            Text_Entry(root, self.vel_list[5], 8, 2)
             ]
 
-        self.xy_entries = [Text_Entry(root, self.xy[0], 13, 0), Text_Entry(root, self.xy[1], 16, 0), \
-            Text_Entry(root, self.xy[2], 13, 1), Text_Entry(root, self.xy[3], 16, 1), \
-            Text_Entry(root, self.xy[4], 13, 2), Text_Entry(root, self.xy[5], 16, 2)]
+        self.xy_entries = [Text_Entry(root, self.xy[0], 11, 0), Text_Entry(root, self.xy[1], 14, 0), \
+            Text_Entry(root, self.xy[2], 11, 1), Text_Entry(root, self.xy[3], 14, 1), \
+            Text_Entry(root, self.xy[4], 11, 2), Text_Entry(root, self.xy[5], 14, 2)]
 
         self.mass_sliders = [Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 150, HORIZONTAL, 3, 0), \
              Slider(root, self.slider_set_mass, self.mass_list[1], 0, 20, 150, HORIZONTAL, 3, 1), \
              Slider(root, self.slider_set_mass, self.mass_list[0], 0, 20, 150, HORIZONTAL, 3, 2)]
 
-        self.vel_sliders = [Slider(root, self.slider_set_vel, self.vel_list[0], -200, 200, 150, HORIZONTAL, 7, 0), \
-            Slider(root, self.slider_set_vel, self.vel_list[1], -200, 200, 150, HORIZONTAL, 10, 0), \
-            Slider(root, self.slider_set_vel, self.vel_list[2], -200, 200, 150, HORIZONTAL, 7, 1), \
-            Slider(root, self.slider_set_vel, self.vel_list[3], -200, 200, 150, HORIZONTAL, 10, 1), \
-            Slider(root, self.slider_set_vel, self.vel_list[4], -200, 200, 150, HORIZONTAL, 7, 2), \
-            Slider(root, self.slider_set_vel, self.vel_list[5], -200, 200, 150, HORIZONTAL, 10, 2) ]
+        self.vel_sliders = [Slider(root, self.slider_set_vel, self.vel_list[0], -200, 200, 150, HORIZONTAL, 6, 0), \
+            Slider(root, self.slider_set_vel, self.vel_list[1], -200, 200, 150, HORIZONTAL, 9, 0), \
+            Slider(root, self.slider_set_vel, self.vel_list[2], -200, 200, 150, HORIZONTAL, 6, 1), \
+            Slider(root, self.slider_set_vel, self.vel_list[3], -200, 200, 150, HORIZONTAL, 9, 1), \
+            Slider(root, self.slider_set_vel, self.vel_list[4], -200, 200, 150, HORIZONTAL, 6, 2), \
+            Slider(root, self.slider_set_vel, self.vel_list[5], -200, 200, 150, HORIZONTAL, 9, 2) ]
 
-        self.xy_sliders = [Slider(root, self.slider_set_xy, self.xy[0], -5000, 5000, 150, HORIZONTAL, 14, 0), \
-            Slider(root, self.slider_set_xy, self.xy[1], -5000, 5000, 150, HORIZONTAL, 17, 0), \
-            Slider(root, self.slider_set_xy, self.xy[2], -5000, 5000, 150, HORIZONTAL, 14, 1), \
-            Slider(root, self.slider_set_xy, self.xy[3], -5000, 5000, 150, HORIZONTAL, 17, 1), \
-            Slider(root, self.slider_set_xy, self.xy[4], -5000, 5000, 150, HORIZONTAL, 14, 2), \
-            Slider(root, self.slider_set_xy, self.xy[5], -5000, 5000, 150, HORIZONTAL, 17, 2 )
+        self.xy_sliders = [Slider(root, self.slider_set_xy, self.xy[0], -5000, 5000, 150, HORIZONTAL, 12, 0), \
+            Slider(root, self.slider_set_xy, self.xy[1], -5000, 5000, 150, HORIZONTAL, 15, 0), \
+            Slider(root, self.slider_set_xy, self.xy[2], -5000, 5000, 150, HORIZONTAL, 12, 1), \
+            Slider(root, self.slider_set_xy, self.xy[3], -5000, 5000, 150, HORIZONTAL, 15, 1), \
+            Slider(root, self.slider_set_xy, self.xy[4], -5000, 5000, 150, HORIZONTAL, 12, 2), \
+            Slider(root, self.slider_set_xy, self.xy[5], -5000, 5000, 150, HORIZONTAL, 15, 2 )
             ]
 
         """self.butts = [Push_Button(root, 'Set Mass', self.butt_set_mass, 4, 1), \
@@ -55,26 +55,26 @@ class GUI:
             Push_Button(root, 'Set Coordinates', self.butt_set_xy, 18, 1), \
             Push_Button(root, 'Start', self.butt_start, 19, 1), \
             Push_Button(root, 'QUIT', quit, 20, 1)]"""
-        self.butts = [Push_Button(root, 'Set ICs', self.butt_set, 18, 1), \
-            Push_Button(root, 'Start', self.butt_start, 19, 1), \
-            Push_Button(root, 'QUIT', quit, 20, 1)]
+        self.butts = [Push_Button(root, 'Set ICs', self.butt_set, 16, 1), \
+            Push_Button(root, 'Start', self.butt_start, 17, 1), \
+            Push_Button(root, 'QUIT', quit, 18, 1)]
         self.labels = [Text_Label(root, "The Odd Squad Presents: 3 Body Orbital Mechanics", \
             0, 0, 1, 2), \
             Text_Label(root, "Mass 1 (Blue)", 1, 0, 1, 1), \
             Text_Label(root, "Mass 2 (Red)", 1, 1, 1, 1), \
             Text_Label(root, "Mass 3 (Orange)", 1, 2, 1, 1), \
-            Text_Label(root, "x1-velocity", 5, 0, 1, 1), \
-            Text_Label(root, "y1-velocity", 8, 0, 1, 1), \
-            Text_Label(root, "x2-velocity", 5, 1, 1, 1), \
-            Text_Label(root, "y2-velocity", 8, 1, 1, 1), \
-            Text_Label(root, "x3-velocity", 5, 2, 1, 1), \
-            Text_Label(root, "y3-velocity", 8, 2, 1, 1), \
-            Text_Label(root, "x1", 12, 0, 1, 1), \
-            Text_Label(root, "y1", 15, 0, 1, 1), \
-            Text_Label(root, "x2", 12, 1, 1, 1), \
-            Text_Label(root, "y2", 15, 1, 1, 1), \
-            Text_Label(root, "x3", 12, 2, 1, 1), \
-            Text_Label(root, "y3", 15, 2, 1, 1)]
+            Text_Label(root, "x1-velocity", 4, 0, 1, 1), \
+            Text_Label(root, "y1-velocity", 7, 0, 1, 1), \
+            Text_Label(root, "x2-velocity", 4, 1, 1, 1), \
+            Text_Label(root, "y2-velocity", 7, 1, 1, 1), \
+            Text_Label(root, "x3-velocity", 4, 2, 1, 1), \
+            Text_Label(root, "y3-velocity", 7, 2, 1, 1), \
+            Text_Label(root, "x1", 10, 0, 1, 1), \
+            Text_Label(root, "y1", 13, 0, 1, 1), \
+            Text_Label(root, "x2", 10, 1, 1, 1), \
+            Text_Label(root, "y2", 13, 1, 1, 1), \
+            Text_Label(root, "x3", 10, 2, 1, 1), \
+            Text_Label(root, "y3", 13, 2, 1, 1)]
 
     def butt_set(self):
         for i in range(0,3):
