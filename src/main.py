@@ -16,7 +16,7 @@ while True:
 
     for i in range(0,3):
         Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.RADIUS, \
-                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[i], gui.vel_list[i+1], i+1))
+                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[2 * i], gui.vel_list[2 * i+1], i+1))
         objectList.append(Obj)
 
     colourList = ['blue', 'red', 'orange']
