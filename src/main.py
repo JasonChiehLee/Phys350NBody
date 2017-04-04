@@ -56,13 +56,13 @@ while True:
 
     objectList = []
     phys.G_OBJECTS.clear()
-    for i in range(0,3):
-        Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.RADIUS, \
-                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[2 * i], gui.vel_list[2 * i+1], i+1))
+    for i in range(0, 3):
+        Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.State(gui.xy[2 * i], \
+             gui.xy[2 * i + 1], gui.vel_list[2 * i], gui.vel_list[2 * i+1], i+1))
         objectList.append(Obj)
-        traceLine,  = ax.plot([],[],lineConfigList[i], lw=1)
+        traceLine, = ax.plot([], [], lineConfigList[i], lw=1)
         traceLineList.append(traceLine)
-        particleLine, = ax.plot([],[],objConfigList[i], lw = 30)
+        particleLine, = ax.plot([], [], objConfigList[i], lw=30)
         particleList.append(particleLine)
 
     from time import time

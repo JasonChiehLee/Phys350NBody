@@ -6,10 +6,10 @@ import physics as phys
 
 class Object:
     """ Generic object in orbit. """
-    def __init__(self, mass, radius, state):
+    def __init__(self, mass, state):
         """ Initialize mass, radius, position, velocity. """
         self.mass = mass
-        self.radius = radius
+        self.radius = mass * phys.RADIUS_SCALING
         self.state = state
         phys.G_OBJECTS.append(self)
 

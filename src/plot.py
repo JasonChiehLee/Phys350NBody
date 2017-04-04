@@ -21,7 +21,8 @@ class Plot:
 
     def show(self):
         """ Show/update the plot. """
-        plt.show(block=True)
+        #plt.show(block=True)
+        plt.show()
 
     def clear(self):
         """ Clear plot. """
