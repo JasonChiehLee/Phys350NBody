@@ -47,6 +47,7 @@ while True:
 
     """To check for collision, call gui.collision_status().  If = 1, then
     collision is selected"""
+    ax = PLOT.get_plot().gca()
     traceLineList = []
     particleList = []
     colourList = ['blue', 'red', 'green']
