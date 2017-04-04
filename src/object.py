@@ -26,6 +26,10 @@ class Object:
         """ Update state by overwriting. """
         self.state = state
 
+    def get_state(self):
+        """Return the object state"""
+        return self.state
+
     def iterate_state(self, dt):
         """ Update state after step of iteration. """
         self.state = phys.iterate(self.state, dt)

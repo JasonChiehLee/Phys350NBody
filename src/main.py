@@ -4,7 +4,40 @@ from object import Object
 from plot import Plot
 import physics as phys
 from GUI import *
+from matplotlib import animation as animation
+import numpy as np
 #from scipy.constants import astronomical_unit as AU
+
+dt = phys.D_T
+
+def init():
+    """init animation"""
+    global traceLineList, particleList
+    
+    for l in traceLineList:
+        l.set_data([],[])
+
+    for p in particleList:
+        p.set_data([],[])
+
+    return tuple(traceLineList) + tuple(particleList)
+
+def animate(k):
+    """perform animation step"""
+    global dt, objectList, traceLineList, particleList
+
+    # step each object forward once
+    for j in range(0,len(objectList)):
+        objectList[j].iterate_state(dt)
+        oldLine = traceLineList[j]
+        traceLineList[j].set_data(np.append(oldLine.get_xdata(),objectList[j].get_state().get_pos()[0]), \
+                                  np.append(oldLine.get_ydata(),objectList[j].get_state().get_pos()[1]))
+        particleList[j].set_data([objectList[j].get_state().get_pos()[0]], \
+                                 [objectList[j].get_state().get_pos()[1]])
+
+    return tuple(traceLineList) + tuple(particleList)
+
+
 while True:
     root = Tk()
     gui = GUI(root)
@@ -12,25 +45,31 @@ while True:
     root.destroy()
     PLOT = gui.butt_start()
 
+    ax = PLOT.get_plot().gca()
+
+    traceLineList = []
+    particleList = []
     objectList = []
+    colourList = ['blue', 'red', 'green']
+    lineConfigList = ['b-', 'r-', 'g-']
+    objConfigList = ['bo', 'ro', 'go']
 
     for i in range(0,3):
         Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.RADIUS, \
-                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[i], gui.vel_list[i+1], i+1))
+                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[2*i], gui.vel_list[2*i+1], i+1))
         objectList.append(Obj)
+        traceLine,  = ax.plot([],[],lineConfigList[i], lw=1)
+        traceLineList.append(traceLine)
+        particleLine, = ax.plot([],[],objConfigList[i], lw = 30)
+        particleList.append(particleLine)
 
-    colourList = ['blue', 'red', 'orange']
+    from time import time
+    t0 = time()
+    animate(0)
+    t1 = time()
+    interval = 1000 * dt - (t1 - t0)
+    animFig = PLOT.get_plot().figure(num=1)
+    ani = animation.FuncAnimation(animFig, animate, frames=10**6, \
+                              interval=interval, blit=True, init_func=init)
 
-    for i in range(0,len(objectList)):
-        PLOT.place_obj(objectList[i], colourList[i])
-
-
-    dt = phys.D_T
-    print ("%s \n %s \n %s" % (gui.xy, gui.mass_list, gui.vel_list))
-    for i in range(0, 100):
-        PLOT.clear_objs()
-        for j in range(0,len(objectList)):
-            objectList[j].iterate_state(dt)
-            PLOT.place_obj(objectList[j], colourList[j])
-        #print(OBJ_1.state.__str__() + '\t' + phys.get_accel(OBJ_1.state).__str__())
-        PLOT.get_plot().pause(1.0/1000)
+    PLOT.show()

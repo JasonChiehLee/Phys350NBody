@@ -36,5 +36,6 @@ class Plot:
     def get_plot(self):
         """TEST FUNCTION _ BREAKS ENCAPSULATION"""
         return plt
+
     #def get_fig(self):
     #    return self.plt.figure()
