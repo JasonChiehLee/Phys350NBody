@@ -45,18 +45,19 @@ while True:
     root.destroy()
     PLOT = gui.butt_start()
 
-    ax = PLOT.get_plot().gca()
-
+    """To check for collision, call gui.collision_status().  If = 1, then
+    collision is selected"""
     traceLineList = []
     particleList = []
-    objectList = []
     colourList = ['blue', 'red', 'green']
     lineConfigList = ['b-', 'r-', 'g-']
     objConfigList = ['bo', 'ro', 'go']
 
+    objectList = []
+    phys.G_OBJECTS.clear()
     for i in range(0,3):
         Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.RADIUS, \
-                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[2*i], gui.vel_list[2*i+1], i+1))
+                phys.State(gui.xy[2 * i], gui.xy[2 * i + 1], gui.vel_list[2 * i], gui.vel_list[2 * i+1], i+1))
         objectList.append(Obj)
         traceLine,  = ax.plot([],[],lineConfigList[i], lw=1)
         traceLineList.append(traceLine)

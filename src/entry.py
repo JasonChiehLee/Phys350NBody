@@ -1,9 +1,9 @@
 from tkinter import *
 
 class Text_Entry:
-    def __init__(self, root, value, row, column):
+    def __init__(self, root, value, row, column, padx, pady):
         self.entry = Entry(root)
-        self.entry.grid(row=row, column=column)
+        self.entry.grid(row=row, column=column, padx=padx, pady=pady)
         self.entry.insert(0, value)
 
     def get_value(self):
