@@ -62,7 +62,8 @@ while True:
         objectList.append(Obj)
         traceLine, = ax.plot([], [], lineConfigList[i], lw=1)
         traceLineList.append(traceLine)
-        particleLine, = ax.plot([], [], objConfigList[i], lw=30)
+        particleLine, = ax.plot([], [], objConfigList[i], lw=Obj.get_radius()*2)
+        print(Obj.get_radius())
         particleList.append(particleLine)
 
     from time import time
