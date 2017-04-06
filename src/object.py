@@ -9,7 +9,7 @@ class Object:
     def __init__(self, mass, state):
         """ Initialize mass, radius, position, velocity. """
         self.mass = mass
-        self.radius = mass * phys.RADIUS_SCALING
+        self.radius = (mass* phys.RADIUS_SCALING)**(1/3)
         self.state = state
         phys.G_OBJECTS.append(self)
 

@@ -62,8 +62,10 @@ while True:
         objectList.append(Obj)
         traceLine, = ax.plot([], [], lineConfigList[i], lw=1)
         traceLineList.append(traceLine)
-        particleLine, = ax.plot([], [], objConfigList[i], lw=Obj.get_radius()*2)
+        particleDiameter = Obj.get_radius()*2*phys.PLOT_DPI*phys.PLOT_SIZE/phys.GRID_SIZE
+        particleLine, = ax.plot([], [], objConfigList[i], ms=particleDiameter)
         print(Obj.get_radius())
+        print(particleDiameter)
         particleList.append(particleLine)
 
     from time import time
@@ -71,8 +73,9 @@ while True:
     animate(0)
     t1 = time()
     interval = 1000 * dt - (t1 - t0)
-    animFig = PLOT.get_plot().figure(num=1)
+    animFig = PLOT.get_plot().figure(num=1, figsize = (phys.PLOT_SIZE, phys.PLOT_SIZE))
+    animFig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = TRUE)
     ani = animation.FuncAnimation(animFig, animate, frames=10**6, \
                               interval=interval, blit=True, init_func=init)
 
-    PLOT.show()
+    #PLOT.show()
