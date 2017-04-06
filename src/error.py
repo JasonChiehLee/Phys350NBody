@@ -18,7 +18,7 @@ dt = []
 iter_list = np.zeros((num_pts, err_pts*np.power(2,(num_pts-1))), float)
 
 for i in range(0,3):
-    Obj = Object(mass_list[i] * phys.MASS_SCALING, phys.RADIUS, \
+    Obj = Object(mass_list[i] * phys.MASS_SCALING, \
             phys.State(xy[2 * i], xy[2 * i + 1], vel_list[2 * i], vel_list[2 * i+1], i+1))
     objectList.append(Obj)
 
