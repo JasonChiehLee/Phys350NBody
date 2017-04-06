@@ -9,7 +9,7 @@ class Object:
     def __init__(self, mass, state):
         """ Initialize mass, radius, position, velocity. """
         self.mass = mass
-        self.radius = mass * phys.RADIUS_SCALING
+        self.radius = (mass* phys.RADIUS_SCALING)**(1/3)
         self.state = state
         phys.G_OBJECTS.append(self)
 
@@ -29,6 +29,10 @@ class Object:
     def get_state(self):
         """Return the object state"""
         return self.state
+
+    def get_radius(self):
+        """Return object's radius"""
+        return self.radius
 
     def iterate_state(self, dt):
         """ Update state after step of iteration. """
