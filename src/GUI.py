@@ -7,6 +7,10 @@ from label import *
 from plot import *
 import physics as phys
 
+mass_list3=[1, 20, 1]
+vel_list3 = [0.0, 140.0, 0.0, 0.0, 0.0, -140]
+xy_list3 = [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
+
 mass_list1 = [1, 1, 1]
 vel_list1 = [50, 0.0, 0.0, 0.0, -50, 0.0]
 xy_list1 = [-2000, 0.0, 0.0, -1000, 50, 0.0]
@@ -97,6 +101,8 @@ class GUI:
             Text_Label(self.f3, "y3", 13, 0, 1, 1, 0, 0)]
 
         self.var = IntVar()
+        self.R0 = Radiobutton(root, text='IC0', variable=self.var, value=3, command=self.IC_sel)
+        self.R0.grid(row=2, column=1)
         self.R1 = Radiobutton(root, text='IC1', variable=self.var, value=1, command=self.IC_sel)
         self.R1.grid(row=3, column=1)
         self.R2 = Radiobutton(root, text='IC2', variable=self.var, value=2, command=self.IC_sel)
@@ -146,7 +152,7 @@ class GUI:
                 self.vel_sliders[i].set_value(vel_list1[i])
                 self.xy_entries[i].set_value(xy_list1[i])
                 self.xy_sliders[i].set_value(xy_list1[i])
-        else:
+        elif self.var.get() == 2:
             self.mass_list = mass_list2
             for i in range(0,3):
                 self.mass_entries[i].set_value(mass_list2[i])
@@ -159,3 +165,17 @@ class GUI:
                 self.vel_sliders[i].set_value(vel_list2[i])
                 self.xy_entries[i].set_value(xy_list2[i])
                 self.xy_sliders[i].set_value(xy_list2[i])
+
+        else:
+            self.mass_list = mass_list3
+            for i in range(0,3):
+                self.mass_entries[i].set_value(mass_list3[i])
+                self.mass_sliders[i].set_value(mass_list3[i])
+
+            self.vel_list = vel_list3
+            self.xy = xy_list3
+            for i in range(0,6):
+                self.vel_entries[i].set_value(vel_list3[i])
+                self.vel_sliders[i].set_value(vel_list3[i])
+                self.xy_entries[i].set_value(xy_list3[i])
+                self.xy_sliders[i].set_value(xy_list3[i])
