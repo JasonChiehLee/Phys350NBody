@@ -17,10 +17,10 @@ class Plot:
         plt.clf()
         plt.grid(b="on")
 
-
         self.fig = plt.figure(num=1, figsize = (phys.PLOT_SIZE, phys.PLOT_SIZE))
         self.fig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = True)
         self.ax = p3.Axes3D(self.fig)
+        self.ax.mouse_init()
 
         self.traceLineList = [] # List of pbject tracelines
         self.zTraceList = []    # List of z component of the trace, since we can't read it
