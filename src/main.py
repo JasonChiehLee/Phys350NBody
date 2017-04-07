@@ -4,6 +4,7 @@ from object import Object
 from plot import Plot
 import physics as phys
 from GUI import *
+from matplotlib import animation as animation
 
 
 #from scipy.constants import astronomical_unit as AU
@@ -28,4 +29,5 @@ while True:
     
     ani = PLOT.start_anim(colourList, lineConfigList, objConfigList, gui)
 
+    #ani.save('basic_animation.mp4', writer='ffmpeg', fps=60, extra_args=['-vcodec', 'libx264'])
     #PLOT.show()
