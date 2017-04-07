@@ -11,7 +11,7 @@ import mpl_toolkits.mplot3d.axes3d as p3
 
 class Plot:
     """ Main grid/plot area. """
-    def __init__(self, x_min, x_max, y_min, y_max, z_min = -1.0, z_max = 1.0):
+    def __init__(self, x_min, x_max, y_min, y_max, z_min, z_max):
         """ Initialize plot. """
         plt.ion()
         plt.clf()
@@ -75,9 +75,10 @@ class Plot:
             self.traceLineList[j].set_3d_properties(self.zTraceList[j])
             if j == 1:
                 
+                # @TODO: We're getting bodied by the tracer lines here. Extra values are being added to traceLineList[j]'s x and y data and I don't know where they're coming from
                 print(oldLine.get_xdata())
                 print(oldLine.get_xdata())
-                print(self.objectList[j].get_state().get_pos().__str__())
+                print(self.objectList[1].get_state().get_pos().__str__())
                 print(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]))
 
 
@@ -89,8 +90,8 @@ class Plot:
         
         for i in range(0, 3):
             # instantiate each object, and fill up the lists
-            Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.State(gui.xy[2 * i], \
-                gui.xy[2 * i + 1], 0, gui.vel_list[2 * i], gui.vel_list[2 * i+1], 0, i+1))
+            Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.State(gui.xy[3 * i], \
+                gui.xy[3 * i + 1], gui.xy[3 * i + 2], gui.vel_list[3 * i], gui.vel_list[3 * i+1], gui.vel_list[3 * i+2], i+1))
             self.objectList.append(Obj)
             traceLine, = self.ax.plot([], [], [], lineConfigList[i], lw=1)
             self.traceLineList.append(traceLine)

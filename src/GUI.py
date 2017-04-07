@@ -152,7 +152,7 @@ class GUI:
 
     def butt_start(self):
         self.root.quit()
-        return Plot(-phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE)
+        return Plot(-phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE, -phys.GRID_SIZE, phys.GRID_SIZE)
 
     def IC_sel(self):
         if self.var.get() == 1:
