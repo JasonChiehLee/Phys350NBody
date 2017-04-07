@@ -21,9 +21,10 @@ class Plot:
         self.fig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = True)
         self.ax = p3.Axes3D(self.fig)
         self.ax.mouse_init()
+        print("Init PLOT")
 
-        self.traceLineList = [] # List of pbject tracelines
-        self.zTraceList = []    # List of z component of the trace, since we can't read it
+        #self.traceLineList = [] # List of pbject tracelines
+        #self.zTraceList = []    # List of z component of the trace, since we can't read it
         self.particleList = []  # List of object locations
         self.objectList = []    # List of particles added
         self.dt = phys.D_T
@@ -40,19 +41,19 @@ class Plot:
 
     def init(self):
         """init animation"""
-    
+        """
         for l in self.traceLineList:
             l.set_data([],[])
             l.set_3d_properties([])
 
         for i in self.zTraceList:
             i = np.array([])
-
+        """
         for p in self.particleList:
             p.set_data([],[])
             p.set_3d_properties([])
 
-        return tuple(self.traceLineList) + tuple(self.particleList)
+        return tuple(self.particleList)
 
     def animate(self, k):
         """perform animation step"""
@@ -64,27 +65,19 @@ class Plot:
             self.objectList[j].iterate_state(self.dt)
 
             # update xy coords
-            oldLine = self.traceLineList[j]
-            self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
-                                  np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
+            #oldLine = self.traceLineList[j]
+            #self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
+            #                      np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
             self.particleList[j].set_data([self.objectList[j].get_state().get_pos()[0]], \
                                  [self.objectList[j].get_state().get_pos()[1]])
 
             # update z coord
-            self.zTraceList[j] = np.append(self.zTraceList[j], np.array([self.objectList[j].get_state().get_pos()[2]]))
-            self.traceLineList[j].set_3d_properties(self.zTraceList[j])
-            if j == 1:
-                
-                # @TODO: We're getting bodied by the tracer lines here. Extra values are being added to traceLineList[j]'s x and y data and I don't know where they're coming from
-                print(oldLine.get_xdata())
-                print(oldLine.get_xdata())
-                print(self.objectList[1].get_state().get_pos().__str__())
-                print(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]))
-
+            #self.zTraceList[j] = np.append(self.zTraceList[j], np.array([self.objectList[j].get_state().get_pos()[2]]))
+            #self.traceLineList[j].set_3d_properties(self.zTraceList[j])
 
             self.particleList[j].set_3d_properties([self.objectList[j].get_state().get_pos()[2]])
 
-        return tuple(self.traceLineList) + tuple(self.particleList)
+        return tuple(self.particleList)
 
     def start_anim(self, colourList, lineConfigList, objConfigList, gui):
         
@@ -93,9 +86,9 @@ class Plot:
             Obj = Object(gui.mass_list[i] * phys.MASS_SCALING, phys.State(gui.xy[3 * i], \
                 gui.xy[3 * i + 1], gui.xy[3 * i + 2], gui.vel_list[3 * i], gui.vel_list[3 * i+1], gui.vel_list[3 * i+2], i+1))
             self.objectList.append(Obj)
-            traceLine, = self.ax.plot([], [], [], lineConfigList[i], lw=1)
-            self.traceLineList.append(traceLine)
-            self.zTraceList.append(np.array([]))
+            #traceLine, = self.ax.plot([], [], [], lineConfigList[i], lw=1)
+            #self.traceLineList.append(traceLine)
+            #self.zTraceList.append(np.array([]))
             particleDiameter = Obj.get_radius()*2*phys.PLOT_DPI*phys.PLOT_SIZE/phys.GRID_SIZE
             particleLine, = self.ax.plot([], [], [], objConfigList[i], ms=particleDiameter)
             self.particleList.append(particleLine)
@@ -106,7 +99,7 @@ class Plot:
         t1 = time()
         interval = 1000 * self.dt - (t1 - t0)
         ani = animation.FuncAnimation(self.fig, self.animate, frames=10**6, \
-                              interval=interval, blit=True, init_func=self.init)
+                              interval=interval, blit=False, init_func=self.init)
         return ani
     #def get_fig(self):
     #    return self.plt.figure()
