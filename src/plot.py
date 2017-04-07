@@ -46,9 +46,6 @@ class Plot:
             self.particleList[j].set_data([self.objectList[j].get_state().get_pos()[0]], \
                                  [self.objectList[j].get_state().get_pos()[1]])
 
-            if j == 1:
-                print(self.objectList[j].__str__())
-
         return tuple(self.traceLineList) + tuple(self.particleList)
 
     
