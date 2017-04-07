@@ -99,5 +99,6 @@ class Plot:
         animFig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = True)
         ani = animation.FuncAnimation(animFig, self.animate, frames=10**6, \
                               interval=interval, blit=True, init_func=self.init)
+        plt.show()
     #def get_fig(self):
     #    return self.plt.figure()
