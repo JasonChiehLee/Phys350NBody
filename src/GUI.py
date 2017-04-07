@@ -11,13 +11,13 @@ mass_list3=[1, 20, 1]
 vel_list3 = [0.0, 140.0, 0.0, 0.0, 0.0, -140]
 xy_list3 = [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
 
-mass_list1 = [1, 1, 1]
-vel_list1 = [50, 0.0, 0.0, 0.0, -50, 0.0]
-xy_list1 = [-2000, 0.0, 0.0, -1000, 50, 0.0]
+mass_list1 = [20, 1, 20]
+vel_list1 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+xy_list1 = [-50000, 0.0, 0.0, 0.0, 50000, 0.0]
 
-mass_list2 = [5, 5, 5]
-vel_list2 = [5.0, 0.0, 0.0, 0.0, -5.0, 0.0]
-xy_list2 = [-5000.0, 0.0, 0.0, 0.0, 5000.0, 0.0]
+mass_list2 = [1, 1, 30]
+vel_list2 = [0.0, -50.0, 0.0, 50.0, 0.0, 0.0]
+xy_list2 = [-50000.0, 0.0, 50000, 0.0, 0.0, 0.0]
 
 class GUI:
     def __init__(self, root):
@@ -59,9 +59,9 @@ class GUI:
             Text_Entry(self.f3, self.xy[4], 11, 0, 5, 0), \
             Text_Entry(self.f3, self.xy[5], 14, 0, 5, 0)]
 
-        self.mass_sliders = [Slider(self.f1, self.slider_set_mass, self.mass_list[0], 0, 20, 100, HORIZONTAL, 3, 0, 0, 0), \
-             Slider(self.f2, self.slider_set_mass, self.mass_list[1], 0, 20, 100, HORIZONTAL, 3, 0, 0, 0), \
-             Slider(self.f3, self.slider_set_mass, self.mass_list[0], 0, 20, 100, HORIZONTAL, 3, 0, 0, 0)]
+        self.mass_sliders = [Slider(self.f1, self.slider_set_mass, self.mass_list[0], 1, 30, 100, HORIZONTAL, 3, 0, 0, 0), \
+             Slider(self.f2, self.slider_set_mass, self.mass_list[1], 1, 30, 100, HORIZONTAL, 3, 0, 0, 0), \
+             Slider(self.f3, self.slider_set_mass, self.mass_list[0], 1, 30, 100, HORIZONTAL, 3, 0, 0, 0)]
 
         self.vel_sliders = [Slider(self.f1, self.slider_set_vel, self.vel_list[0], -200, 200, 100, HORIZONTAL, 6, 0, 0, 0), \
             Slider(self.f1, self.slider_set_vel, self.vel_list[1], -200, 200, 100, HORIZONTAL, 9, 0, 0, 0), \
@@ -70,12 +70,12 @@ class GUI:
             Slider(self.f3, self.slider_set_vel, self.vel_list[4], -200, 200, 100, HORIZONTAL, 6, 0, 0, 0), \
             Slider(self.f3, self.slider_set_vel, self.vel_list[5], -200, 200, 100, HORIZONTAL, 9, 0, 0, 0) ]
 
-        self.xy_sliders = [Slider(self.f1, self.slider_set_xy, self.xy[0], -5000, 5000, 100, HORIZONTAL, 12, 0, 0, 0), \
-            Slider(self.f1, self.slider_set_xy, self.xy[1], -5000, 5000, 100, HORIZONTAL, 15, 0, 0, 0), \
-            Slider(self.f2, self.slider_set_xy, self.xy[2], -5000, 5000, 100, HORIZONTAL, 12, 0, 0, 0), \
-            Slider(self.f2, self.slider_set_xy, self.xy[3], -5000, 5000, 100, HORIZONTAL, 15, 0, 0, 0), \
-            Slider(self.f3, self.slider_set_xy, self.xy[4], -5000, 5000, 100, HORIZONTAL, 12, 0, 0, 0), \
-            Slider(self.f3, self.slider_set_xy, self.xy[5], -5000, 5000, 100, HORIZONTAL, 15, 0, 0, 0)
+        self.xy_sliders = [Slider(self.f1, self.slider_set_xy, self.xy[0], -100000, 100000, 100, HORIZONTAL, 12, 0, 0, 0), \
+            Slider(self.f1, self.slider_set_xy, self.xy[1], -100000, 100000, 100, HORIZONTAL, 15, 0, 0, 0), \
+            Slider(self.f2, self.slider_set_xy, self.xy[2], -100000, 100000, 100, HORIZONTAL, 12, 0, 0, 0), \
+            Slider(self.f2, self.slider_set_xy, self.xy[3], -100000, 100000, 100, HORIZONTAL, 15, 0, 0, 0), \
+            Slider(self.f3, self.slider_set_xy, self.xy[4], -100000, 100000, 100, HORIZONTAL, 12, 0, 0, 0), \
+            Slider(self.f3, self.slider_set_xy, self.xy[5], -100000, 100000, 100, HORIZONTAL, 15, 0, 0, 0)
             ]
 
         self.butts = [Push_Button(root, 'Set ICs', self.butt_set, 5, 1, 5, 0), \
