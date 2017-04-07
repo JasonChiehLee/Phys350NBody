@@ -8,6 +8,8 @@ from matplotlib import animation as animation
 import physics as phys
 from object import Object
 
+ANIMATION_FRAMES = 3600
+
 class Plot:
     """ Main grid/plot area. """
     def __init__(self, x_min, x_max, y_min, y_max):
@@ -46,8 +48,6 @@ class Plot:
             self.particleList[j].set_data([self.objectList[j].get_state().get_pos()[0]], \
                                  [self.objectList[j].get_state().get_pos()[1]])
 
-            if j == 1:
-                print(self.objectList[j].__str__())
 
         return tuple(self.traceLineList) + tuple(self.particleList)
 
@@ -97,7 +97,7 @@ class Plot:
         interval = 1000 * self.dt - (t1 - t0)
         animFig = plt.figure(num=1, figsize = (phys.PLOT_SIZE, phys.PLOT_SIZE))
         animFig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = True)
-        ani = animation.FuncAnimation(animFig, self.animate, frames=10**6, \
+        ani = animation.FuncAnimation(animFig, self.animate, frames=ANIMATION_FRAMES, \
                               interval=interval, blit=True, init_func=self.init)
         plt.show()
         return ani
