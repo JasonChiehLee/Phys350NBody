@@ -19,12 +19,14 @@ G = gravitational_constant * 5.0e12
 
 class State:
     """ State, which defines object's position and velocity. """
-    def __init__(self, x, y, u, v, tag):
+    def __init__(self, x, y, z, u, v, w, tag):
         """ Initialize values for position and velocity. """
         self.x = x
         self.y = y
+        self.z = z
         self.u = u
         self.v = v
+        self.w = w
         self.tag = tag
 
     def __str__(self):
@@ -33,28 +35,30 @@ class State:
 
     def as_vec(self):
         """ Get state in terms of position and velocity. """
-        return np.array([self.x, self.y, self.u, self.v])
+        return np.array([self.x, self.y, self.z, self.u, self.v, self.w])
 
     def get_pos(self):
         """ Get position vector of state. """
-        return np.array([self.x, self.y])
+        return np.array([self.x, self.y, self.z])
 
     def get_vel(self):
         """ Get velocity vector of state. """
-        return np.array([self.u, self.v])
+        return np.array([self.u, self.v, self.w])
 
 class Derivative:
     """ Infinitesemal of an object, used to calculate future states. """
-    def __init__(self, dx, dy, du, dv):
+    def __init__(self, dx, dy, dz, du, dv, dw):
         """ Initialize values for infinitesemal position and velocity. """
         self.dx = dx
         self.dy = dy
+        self.dz = dz
         self.du = du
         self.dv = dv
+        self.dw = dw
 
     def as_vec(self):
         """ Get infinitesemal in terms of position and velocity. """
-        return np.array([self.dx, self.dy, self.du, self.dv])
+        return np.array([self.dx, self.dy, self.dz, self.du, self.dv, self.dw])
 
 def get_norm(vec):
     """ Return the magnitude of a vector. """
@@ -69,7 +73,7 @@ def get_pos_rel(state_1, state_2):
     #print(np.add(state_1.get_pos(), -1.0 * state_2.get_pos()).__str__())
     #
     if np.allclose(state_1.get_pos(), state_2.get_pos()):
-        return [0.0, 0.0]
+        return [0.0, 0.0, 0.0]
     else:
         return np.add(state_1.get_pos(), -1.0 * state_2.get_pos())
 
@@ -83,11 +87,11 @@ def get_accel(state):
     and similar for r_2 and r_3. So, 6 equations (3 vector equations) for a
     2D system. This function returns the vector equation for one of the objects.
     """
-    accel = np.array([0.0, 0.0])
+    accel = np.array([0.0, 0.0, 0.0])
     for obj_rel in G_OBJECTS:
         if state.tag == obj_rel.state.tag:
             if obj_rel.mass == 0.0:
-                return np.array([0.0, 0.0])
+                return np.array([0.0, 0.0, 0.0])
         else:
             # DEBUG
             #print(obj_rel.__str__())
@@ -104,23 +108,26 @@ def get_deriv(state, deriv, dt):
     # @TODO: Is there a better way to declare states when we already have the vector?
     new_state_vec = np.add(state.as_vec(), deriv.as_vec() * dt)
     state = State(new_state_vec[0], new_state_vec[1], \
-                      new_state_vec[2], new_state_vec[3], state.tag)
+                  new_state_vec[2], new_state_vec[3], \
+                  new_state_vec[4], new_state_vec[5], state.tag)
     accel = get_accel(state)
-    return Derivative(new_state_vec[2], new_state_vec[3], \
-                      accel[0], accel[1])
+    return Derivative(new_state_vec[3], new_state_vec[4], new_state_vec[5], \
+                      accel[0], accel[1], accel[2])
 
 def iterate(state, dt):
     """ Use 4th order Runge-Kutta method to obtain new state. """
     new_state = State(state.as_vec()[0], state.as_vec()[1], \
-                      state.as_vec()[2], state.as_vec()[3], state.tag)
+                      state.as_vec()[2], state.as_vec()[3], \
+                      state.as_vec()[4], state.as_vec()[5], state.tag)
     init_accel = get_accel(new_state)
 
-    k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], \
-                     init_accel[0], init_accel[1])
+    k_1 = Derivative(state.as_vec()[3], state.as_vec()[4], state.as_vec()[5], \
+                     init_accel[0], init_accel[1], init_accel[2])
     k_2 = get_deriv(new_state, k_1, dt / 2.0)
     k_3 = get_deriv(new_state, k_2, dt / 2.0)
     k_4 = get_deriv(new_state, k_3, dt)
     result = np.add(new_state.as_vec(), \
         np.add(k_1.as_vec(), np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0)
 
-    return State(result[0], result[1], result[2], result[3], state.tag)
+    return State(result[0], result[1], result[2], \
+                 result[3], result[4], result[5], state.tag)
