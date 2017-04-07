@@ -82,10 +82,11 @@ class Plot:
             self.zTraceList[j] = np.append(self.zTraceList[j], np.array([self.objectList[j].get_state().get_pos()[2]]))
             self.traceLineList[j].set_3d_properties(self.zTraceList[j])
             if j == 1:
+                
+                print(oldLine.get_xdata())
+                print(oldLine.get_xdata())
+                print(self.objectList[j].get_state().get_pos().__str__())
                 print(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]))
-                #print(oldLine.get_xdata())
-                #print(oldLine.get_xdata())
-                #print(self.objectList[j].get_state().get_pos().__str__())
 
 
             self.particleList[j].set_3d_properties([self.objectList[j].get_state().get_pos()[2]])
