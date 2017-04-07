@@ -60,6 +60,14 @@ class Plot:
         # step each object forward once
         for j in range(0,len(self.objectList)):
 
+            """
+            self.objectList[j].iterate_state(self.dt)
+            oldLine = self.traceLineList[j]
+            self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
+                                  np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
+            self.particleList[j].set_data([self.objectList[j].get_state().get_pos()[0]], \
+                                 [self.objectList[j].get_state().get_pos()[1]])
+            """
             # iterate one step
             self.objectList[j].iterate_state(self.dt)
 
@@ -74,7 +82,12 @@ class Plot:
             self.zTraceList[j] = np.append(self.zTraceList[j], np.array([self.objectList[j].get_state().get_pos()[2]]))
             self.traceLineList[j].set_3d_properties(self.zTraceList[j])
             if j == 1:
-                print(self.traceLineList[j].get_xdata())
+                print(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]))
+                #print(oldLine.get_xdata())
+                #print(oldLine.get_xdata())
+                #print(self.objectList[j].get_state().get_pos().__str__())
+
+
             self.particleList[j].set_3d_properties([self.objectList[j].get_state().get_pos()[2]])
 
         return tuple(self.traceLineList) + tuple(self.particleList)
