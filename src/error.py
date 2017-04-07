@@ -20,7 +20,7 @@ xy = [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
 #xy = [-50000.0, 0.0, 50000, 0.0, 0.0, 0.0]
 
 num_pts = 10
-dt_start = 1e-6
+dt_start = 1e-20
 err_pts = 300
 dt = []
 #iter_list = np.zeros((num_pts, err_pts*np.power(2,(num_pts-1))))
@@ -28,7 +28,7 @@ iter_list = np.zeros((num_pts, err_pts))
 
 for i in range(0, num_pts):
     dt.append(dt_start)
-    dt_start = dt_start/5
+    dt_start = dt_start/10
 
 for p in range(0, num_pts):
     objectList = []
@@ -57,13 +57,13 @@ ax1 = fig.add_subplot(111)
 
 for i in range(0, num_pts):
     temp = iter_list[i, 0:err_pts]
-    ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i]*1000000))
+    ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i]*1e18))
 
 #	temp = iter_list[i, 0:err_pts*np.power(2, i)]
 #	ax1.plot(np.linspace(0 , (dt[i]*(err_pts*np.power(2,i)-1)), err_pts*np.power(2,i)), temp, label ='%f' %(dt[i]))
 
 # Plots the y velocity vs time step as it is
-ax1.legend(title = "Timesteps in 1e-6")
+ax1.legend(title = "Timesteps in 1e-18")
 ax1.set_title('Y-Velocity of Object 1 with Varying Time Step')
 plt.ylabel('Y-Velocity of Object 1')
 plt.xlabel('Time')
@@ -79,10 +79,10 @@ fig2 = plt.figure()
 ax2 = fig2.add_subplot(111)
 
 for i in range(0, (num_pts-1)):
-    ax2.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), np.absolute(err[i,:]), label = '%f' %(dt[i]*1000000))
+    ax2.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), np.absolute(err[i,:]), label = '%f' %(dt[i]*1e18))
 
-ax2.legend(title = "Timestep in 1e-6")
-ax2.set_title('Relative error of the Y-Velocity')
-plt.ylabel('Relative Error')
+ax2.legend(title = "Timestep in 1e-18")
+ax2.set_title('Absolute error of the Y-Velocity')
+plt.ylabel('Absolute Error')
 plt.xlabel('Time')
 plt.show()
