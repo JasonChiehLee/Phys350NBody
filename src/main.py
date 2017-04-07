@@ -26,6 +26,6 @@ while True:
     
     phys.G_OBJECTS.clear()
     
-    PLOT.start_anim(colourList, lineConfigList, objConfigList, gui)
+    ani = PLOT.start_anim(colourList, lineConfigList, objConfigList, gui)
 
     #PLOT.show()

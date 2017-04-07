@@ -47,7 +47,7 @@ class Plot:
                                  [self.objectList[j].get_state().get_pos()[1]])
 
             if j == 1:
-                print("test")
+                print(self.objectList[j].__str__())
 
         return tuple(self.traceLineList) + tuple(self.particleList)
 
@@ -100,5 +100,6 @@ class Plot:
         ani = animation.FuncAnimation(animFig, self.animate, frames=10**6, \
                               interval=interval, blit=True, init_func=self.init)
         plt.show()
+        return ani
     #def get_fig(self):
     #    return self.plt.figure()
