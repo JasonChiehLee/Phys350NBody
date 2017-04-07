@@ -6,14 +6,14 @@ from button import *
 from label import *
 from plot import *
 import physics as phys
-
+#Blue Red Green
 mass_list3=[1, 20, 1]
 vel_list3 = [0.0, 140.0, 0.0, 0.0, 0.0, -140]
 xy_list3 = [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
 
-mass_list1 = [20, 1, 20]
-vel_list1 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-xy_list1 = [-50000, 0.0, 0.0, 0.0, 50000, 0.0]
+mass_list1 = [5, 5, 5]
+vel_list1 = [0.0, 10.0, 0.0, 0.0, 0.0, -10.0]
+xy_list1 = [30000, 50000.0, 0.0, 50000.0, -30000.0, 50000.0]
 
 mass_list2 = [1, 1, 30]
 vel_list2 = [0.0, -50.0, 0.0, 50.0, 0.0, 0.0]

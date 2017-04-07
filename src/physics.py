@@ -11,7 +11,7 @@ PLOT_SIZE = 7 #inches
 PLOT_DPI = 120 # dots per inch
 
 # Scaling and constants:
-D_T = 1.0e-6
+D_T = 1.0e-8
 GRID_SIZE = 1.0e5
 MASS_SCALING = 1.0e4
 RADIUS_SCALING = GRID_SIZE / 1.0e2
