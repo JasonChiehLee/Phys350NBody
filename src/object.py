@@ -34,6 +34,6 @@ class Object:
         """Return object's radius"""
         return self.radius
 
-    def iterate_state(self, dt):
+    def iterate_state(self):
         """ Update state after step of iteration. """
-        self.state = phys.iterate(self.state, dt)
+        self.state = phys.iterate(self.state, phys.ITER_PARAM)

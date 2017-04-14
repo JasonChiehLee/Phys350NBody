@@ -8,7 +8,7 @@ from matplotlib import animation as animation
 import physics as phys
 from object import Object
 
-ANIMATION_FRAMES = 3600
+ANIMATION_FRAMES = 10 ** 6
 
 class Plot:
     """ Main grid/plot area. """
@@ -41,7 +41,7 @@ class Plot:
 
         # step each object forward once
         for j in range(0,len(self.objectList)):
-            self.objectList[j].iterate_state(self.dt)
+            self.objectList[j].iterate_state()
             oldLine = self.traceLineList[j]
             self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
                                   np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
@@ -94,7 +94,7 @@ class Plot:
         t0 = time()
         self.animate(0)
         t1 = time()
-        interval = 1000 * self.dt - (t1 - t0)
+        interval = (10 ** 5) * self.dt - (t1 - t0)
         animFig = plt.figure(num=1, figsize = (phys.PLOT_SIZE, phys.PLOT_SIZE))
         animFig.set_size_inches(phys.PLOT_SIZE, phys.PLOT_SIZE, forward = True)
         ani = animation.FuncAnimation(animFig, self.animate, frames=ANIMATION_FRAMES, \
