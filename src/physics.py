@@ -129,14 +129,13 @@ def iterate_sym_euler(state):
 def iterate_verlet(state):
     """ Use Velocity Verlet to obtain new state. """
     d_t = D_T * SYM_SCALING
+    
     init_accel = get_accel(state)
-
     new_state = State(state.x + (state.u * d_t) + (0.5 * init_accel[0] * d_t ** 2), \
                       state.y + (state.v * d_t) + (0.5 * init_accel[1] * d_t ** 2), \
                       state.u, state.v, state.tag)
 
     new_accel = get_accel(new_state)
-
     new_state.u = state.u + 0.5 * (init_accel[0] + new_accel[0]) * d_t
     new_state.v = state.v + 0.5 * (init_accel[1] + new_accel[1]) * d_t
 
