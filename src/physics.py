@@ -106,7 +106,7 @@ def iterate_rk4(state):
     k_2 = get_deriv_rk4(state, k_1, D_T / 2.0)
     k_3 = get_deriv_rk4(state, k_2, D_T / 2.0)
     k_4 = get_deriv_rk4(state, k_3, D_T)
-    
+
     return State(state.x + (k_1.d_x + 2 * k_2.d_x + 2 * k_3.d_x + k_4.d_x) / 6.0, \
                  state.y + (k_1.d_y + 2 * k_2.d_y + 2 * k_3.d_y + k_4.d_y) / 6.0, \
                  state.u + (k_1.d_u + 2 * k_2.d_u + 2 * k_3.d_u + k_4.d_u) / 6.0, \
