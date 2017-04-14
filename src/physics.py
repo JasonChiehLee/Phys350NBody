@@ -8,7 +8,7 @@ G_OBJECTS = [] # total list of objects
 ## Physical plot parameters
 PLOT_SIZE = 7   #inches
 PLOT_DPI = 120  # dots per inch
-ITER_PARAM = 0  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
+ITER_PARAM = 2  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
 
 ## Scaling and constants:
 D_T = 1.0e-8
@@ -107,10 +107,10 @@ def iterate_rk4(state):
     k_3 = get_deriv_rk4(state, k_2, D_T / 2.0)
     k_4 = get_deriv_rk4(state, k_3, D_T)
 
-    return State(state.x + (k_1.d_x + 2 * k_2.d_x + 2 * k_3.d_x + k_4.d_x) / 6.0, \
-                 state.y + (k_1.d_y + 2 * k_2.d_y + 2 * k_3.d_y + k_4.d_y) / 6.0, \
-                 state.u + (k_1.d_u + 2 * k_2.d_u + 2 * k_3.d_u + k_4.d_u) / 6.0, \
-                 state.v + (k_1.d_v + 2 * k_2.d_v + 2 * k_3.d_v + k_4.d_v) / 6.0, \
+    return State(state.x + (k_1.d_x + 2.0 * k_2.d_x + 2.0 * k_3.d_x + k_4.d_x) / 6.0, \
+                 state.y + (k_1.d_y + 2.0 * k_2.d_y + 2.0 * k_3.d_y + k_4.d_y) / 6.0, \
+                 state.u + (k_1.d_u + 2.0 * k_2.d_u + 2.0 * k_3.d_u + k_4.d_u) / 6.0, \
+                 state.v + (k_1.d_v + 2.0 * k_2.d_v + 2.0 * k_3.d_v + k_4.d_v) / 6.0, \
                  state.tag)
 
 def iterate_sym_euler(state):
