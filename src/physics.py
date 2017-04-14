@@ -8,7 +8,7 @@ G_OBJECTS = [] # total list of objects
 ## Physical plot parameters
 PLOT_SIZE = 7   #inches
 PLOT_DPI = 120  # dots per inch
-ITER_PARAM = 2  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
+ITER_PARAM = 0  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
 
 ## Scaling and constants:
 D_T = 1.0e-8
@@ -46,29 +46,23 @@ class State:
 
 class Derivative:
     """ Infinitesemal of an object, used to calculate future states. """
-    def __init__(self, dx, dy, du, dv):
+    def __init__(self, d_x, d_y, d_u, d_v):
         """ Initialize values for infinitesemal position and velocity. """
-        self.dx = dx
-        self.dy = dy
-        self.du = du
-        self.dv = dv
+        self.d_x = d_x
+        self.d_y = d_y
+        self.d_u = d_u
+        self.d_v = d_v
 
     def as_vec(self):
         """ Get infinitesemal in terms of position and velocity. """
-        return np.array([self.dx, self.dy, self.du, self.dv])
+        return np.array([self.d_x, self.d_y, self.d_u, self.d_v])
 
 def get_norm(vec):
     """ Return the magnitude of a vector. """
-    # DEBUG
-    #print(np.linalg.norm(vec))
-    #
     return np.linalg.norm(vec)
 
 def get_pos_rel(state_1, state_2):
     """ Calculate the position vector between two objects. """
-    # DEBUG
-    #print(np.add(state_1.get_pos(), -1.0 * state_2.get_pos()).__str__())
-    #
     if np.allclose(state_1.get_pos(), state_2.get_pos()):
         return [0.0, 0.0]
     else:
@@ -98,42 +92,39 @@ def get_accel(state):
 
 def get_deriv_rk4(state, deriv, d_t):
     """ Obtain derivative for steps of RK4. """
-    new_state_vec = np.add(state.as_vec(), deriv.as_vec() * d_t)
-    state = State(new_state_vec[0], new_state_vec[1], \
-                      new_state_vec[2], new_state_vec[3], state.tag)
-    accel = get_accel(state)
-    return Derivative(new_state_vec[2], new_state_vec[3], \
-                      accel[0], accel[1])
+    new_state = State(state.x + (deriv.d_x * d_t), state.y + (deriv.d_y * d_t), \
+                      state.u + (deriv.d_u * d_t), state.v + (deriv.d_v * d_t), \
+                      state.tag)
+    accel = get_accel(new_state)
+    return Derivative(new_state.u, new_state.v, accel[0], accel[1])
 
 def iterate_rk4(state):
     """ Use RK4 to obtain new state. """
-    new_state = State(state.as_vec()[0], state.as_vec()[1], \
-                      state.as_vec()[2], state.as_vec()[3], state.tag)
-    accel = get_accel(new_state)
+    accel = get_accel(state)
 
-    k_1 = Derivative(state.as_vec()[2], state.as_vec()[3], accel[0], accel[1])
-    k_2 = get_deriv_rk4(new_state, k_1, D_T / 2.0)
-    k_3 = get_deriv_rk4(new_state, k_2, D_T / 2.0)
-    k_4 = get_deriv_rk4(new_state, k_3, D_T)
-    result = np.add(new_state.as_vec(), \
-        np.add(k_1.as_vec(), np.add(2.0 * np.add(k_2.as_vec(), k_3.as_vec()), k_4.as_vec())) / 6.0)
-
-    return State(result[0], result[1], result[2], result[3], state.tag)
+    k_1 = Derivative(state.u, state.v, accel[0], accel[1])
+    k_2 = get_deriv_rk4(state, k_1, D_T / 2.0)
+    k_3 = get_deriv_rk4(state, k_2, D_T / 2.0)
+    k_4 = get_deriv_rk4(state, k_3, D_T)
+    
+    return State(state.x + (k_1.d_x + 2 * k_2.d_x + 2 * k_3.d_x + k_4.d_x) / 6.0, \
+                 state.y + (k_1.d_y + 2 * k_2.d_y + 2 * k_3.d_y + k_4.d_y) / 6.0, \
+                 state.u + (k_1.d_u + 2 * k_2.d_u + 2 * k_3.d_u + k_4.d_u) / 6.0, \
+                 state.v + (k_1.d_v + 2 * k_2.d_v + 2 * k_3.d_v + k_4.d_v) / 6.0, \
+                 state.tag)
 
 def iterate_sym_euler(state):
     """ Use Symplectic Euler to obtain new state. """
     d_t = D_T * SYM_SCALING
-    accel = get_accel(state)
 
-    # DEBUG
-    #new_state = State(state.x + (state.u * d_t), state.y + (state.v * d_t), \
-    #                  state.u + (accel[0] * d_t), state.v + (accel[1] * d_t), state.tag)
-    #if new_state.tag == 1:
-    #    print(new_state.as_vec())
-    #
+    new_state = State(state.x + (state.u * d_t), state.y + (state.v * d_t), \
+                      state.u, state.v, state.tag)
 
-    return State(state.x + (state.u * d_t), state.y + (state.v * d_t), \
-                 state.u + (accel[0] * d_t), state.v + (accel[1] * d_t), state.tag)
+    new_accel = get_accel(new_state)
+    new_state.u = state.u + (new_accel[0] * d_t)
+    new_state.v = state.v + (new_accel[1] * d_t)
+
+    return new_state
 
 def iterate_verlet(state):
     """ Use Velocity Verlet to obtain new state. """
@@ -148,11 +139,6 @@ def iterate_verlet(state):
 
     new_state.u = state.u + 0.5 * (init_accel[0] + new_accel[0]) * d_t
     new_state.v = state.v + 0.5 * (init_accel[1] + new_accel[1]) * d_t
-
-    # DEBUG
-    #if new_state.tag == 1:
-    #    print(new_state.as_vec())
-    #
 
     return new_state
 
@@ -173,5 +159,3 @@ def iterate(state, method):
 
     else:
         return state
-
-
