@@ -11,21 +11,21 @@ import numpy as np
 #xy = [3e3, 0e3, 0e3, 0e3, 2e3, -4e3]
 """[x1, y1, ...] """
 
-mass_list=[1, 20, 1]
-vel_list = [0.0, 140.0, 0.0, 0.0, 0.0, -140]
-xy = [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
+mass_list = [1, 20, 1]
+vel_list =  [0.0, 140.0, 0.0, 0.0, 0.0, -140]
+xy =        [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
 
 #mass_list = [1, 1, 30]
 #vel_list = [0.0, -50.0, 0.0, 50.0, 0.0, 0.0]
 #xy = [-50000.0, 0.0, 50000, 0.0, 0.0, 0.0]
 
 num_pts = 1
-dt_start = 1e-20
+dt_start = 1.0e-20
 err_pts = 300
 dt = []
 #iter_list = np.zeros((num_pts, err_pts*np.power(2,(num_pts-1))))
 iter_list = np.zeros((num_pts, err_pts))
-real_time = 1
+real_time = 0
 method = 1      #RK4 = 0, symplectic = 1, velocity verlet = 2   
 stepsize = 2
 
@@ -45,10 +45,10 @@ for p in range(0, num_pts):
         objectList.append(Obj)
     if real_time == 1:
      # Only saves the data for Object 1's x-velocity
-        for j in range(0,err_pts*np.power(2,p)):
+        for j in range(0, err_pts * np.power(2, p)):
             iter_list[p, j]=objectList[0].state.get_vel()[0]
             for k in range(0, len(objectList)):
-                objectList[k].iterate_state()
+                objectList[k].iterate_state(1.0)
     else:
         for j in range(0, err_pts):
             iter_list[p, j]=objectList[0].state.get_vel()[1]
@@ -57,19 +57,17 @@ for p in range(0, num_pts):
     
     phys.G_OBJECTS.clear()
 
-
-
 #For now plots the data
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
 
 for i in range(0, num_pts):
     if real_time == 1:
-        temp = iter_list[i, 0:err_pts*np.power(2, i)]
-        ax1.plot(np.linspace(0 , (dt[i]*(err_pts*np.power(2,i)-1)), err_pts*np.power(2,i)), temp, label ='%f' %(dt[i]))
+        temp = iter_list[i, 0 : err_pts * np.power(2, i)]
+        ax1.plot(np.linspace(0 , (dt[i] * (err_pts * np.power(2, i) - 1)), err_pts * np.power(2, i)), temp, label ='%f' %(dt[i]))
     else:
         temp = iter_list[i, 0:err_pts]
-        ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i]*1e18))
+        ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i] * 1e18))
 
 
 

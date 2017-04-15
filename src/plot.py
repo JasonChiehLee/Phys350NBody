@@ -41,11 +41,7 @@ class Plot:
 
         # step each object forward once
         for j in range(0,len(self.objectList)):
-            self.objectList[j].iterate_state()
-            # DEBUG
-            if self.objectList[j].get_state().tag == 1:
-                print(self.objectList[j].get_state().__str__())
-            #
+            self.objectList[j].iterate_state(phys.D_T)
             oldLine = self.traceLineList[j]
             self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
                                   np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
