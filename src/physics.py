@@ -3,20 +3,20 @@
 from scipy.constants import gravitational_constant
 import numpy as np
 
+ITER_PARAM = 0  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
+
 G_OBJECTS = [] # total list of objects
 
 ## Physical plot parameters
-PLOT_SIZE = 7   #inches
+PLOT_SIZE = 7   # inches
 PLOT_DPI = 120  # dots per inch
-ITER_PARAM = 2  # 0 = RK4, 1 = Symplectic Euler, 2 = Velocity Verlet
 
 ## Scaling and constants:
-D_T = 1.0e-8
+D_T = 5.0e-1
 GRID_SIZE = 1.0e5
 MASS_SCALING = 1.0e4
 RADIUS_SCALING = GRID_SIZE / 1.0e2
 G = gravitational_constant * 5.0e12
-SYM_SCALING = 5.0e7
 
 class State:
     """ State, which defines object's position and velocity. """
@@ -107,43 +107,38 @@ def iterate_rk4(state):
     k_3 = get_deriv_rk4(state, k_2, D_T / 2.0)
     k_4 = get_deriv_rk4(state, k_3, D_T)
 
-    return State(state.x + (k_1.d_x + 2.0 * k_2.d_x + 2.0 * k_3.d_x + k_4.d_x) / 6.0, \
-                 state.y + (k_1.d_y + 2.0 * k_2.d_y + 2.0 * k_3.d_y + k_4.d_y) / 6.0, \
-                 state.u + (k_1.d_u + 2.0 * k_2.d_u + 2.0 * k_3.d_u + k_4.d_u) / 6.0, \
-                 state.v + (k_1.d_v + 2.0 * k_2.d_v + 2.0 * k_3.d_v + k_4.d_v) / 6.0, \
+    return State(state.x + (k_1.d_x + 2.0 * k_2.d_x + 2.0 * k_3.d_x + k_4.d_x) / 6.0 * D_T, \
+                 state.y + (k_1.d_y + 2.0 * k_2.d_y + 2.0 * k_3.d_y + k_4.d_y) / 6.0 * D_T, \
+                 state.u + (k_1.d_u + 2.0 * k_2.d_u + 2.0 * k_3.d_u + k_4.d_u) / 6.0 * D_T, \
+                 state.v + (k_1.d_v + 2.0 * k_2.d_v + 2.0 * k_3.d_v + k_4.d_v) / 6.0 * D_T, \
                  state.tag)
 
 def iterate_sym_euler(state):
     """ Use Symplectic Euler to obtain new state. """
-    d_t = D_T * SYM_SCALING
-
-    new_state = State(state.x + (state.u * d_t), state.y + (state.v * d_t), \
+    new_state = State(state.x + (state.u * D_T), state.y + (state.v * D_T), \
                       state.u, state.v, state.tag)
 
     new_accel = get_accel(new_state)
-    new_state.u = state.u + (new_accel[0] * d_t)
-    new_state.v = state.v + (new_accel[1] * d_t)
+    new_state.u = state.u + (new_accel[0] * D_T)
+    new_state.v = state.v + (new_accel[1] * D_T)
 
     return new_state
 
 def iterate_verlet(state):
     """ Use Velocity Verlet to obtain new state. """
-    d_t = D_T * SYM_SCALING
-
     init_accel = get_accel(state)
-    new_state = State(state.x + (state.u * d_t) + (0.5 * init_accel[0] * d_t ** 2), \
-                      state.y + (state.v * d_t) + (0.5 * init_accel[1] * d_t ** 2), \
+    new_state = State(state.x + (state.u * D_T) + (0.5 * init_accel[0] * D_T ** 2), \
+                      state.y + (state.v * D_T) + (0.5 * init_accel[1] * D_T ** 2), \
                       state.u, state.v, state.tag)
 
     new_accel = get_accel(new_state)
-    new_state.u = state.u + 0.5 * (init_accel[0] + new_accel[0]) * d_t
-    new_state.v = state.v + 0.5 * (init_accel[1] + new_accel[1]) * d_t
+    new_state.u = state.u + 0.5 * (init_accel[0] + new_accel[0]) * D_T
+    new_state.v = state.v + 0.5 * (init_accel[1] + new_accel[1]) * D_T
 
     return new_state
 
 def iterate(state, method):
     """ Iterate through points using method specified in parameter. """
-
     # Use RK4 method
     if method == 0:
         return iterate_rk4(state)

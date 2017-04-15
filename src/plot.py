@@ -20,10 +20,10 @@ class Plot:
         plt.grid(b="on")
         self.patchList = list()
         self.ax = plt.gca()
-        self.traceLineList = [] # List of pbject tracelines
+        self.traceLineList = [] # List of object tracelines
         self.particleList = []  # List of object locations
         self.objectList = []    # List of particles added
-        self.dt = phys.D_T
+        self.dt = 1.0e-5        # Fixed interval of frames, NOTE: different from phys.D_T
 
     def init(self):
         """init animation"""
@@ -42,6 +42,10 @@ class Plot:
         # step each object forward once
         for j in range(0,len(self.objectList)):
             self.objectList[j].iterate_state()
+            # DEBUG
+            if self.objectList[j].get_state().tag == 1:
+                print(self.objectList[j].get_state().__str__())
+            #
             oldLine = self.traceLineList[j]
             self.traceLineList[j].set_data(np.append(oldLine.get_xdata(),self.objectList[j].get_state().get_pos()[0]), \
                                   np.append(oldLine.get_ydata(),self.objectList[j].get_state().get_pos()[1]))
