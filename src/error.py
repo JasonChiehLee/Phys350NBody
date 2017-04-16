@@ -19,15 +19,17 @@ xy =        [3e3, 0e3, 0e3, 0e3, -3000.0, 0.0]
 #vel_list = [0.0, -50.0, 0.0, 50.0, 0.0, 0.0]
 #xy = [-50000.0, 0.0, 50000, 0.0, 0.0, 0.0]
 
-num_pts = 1
-dt_start = 1.0e-20
-err_pts = 300
+num_pts = 2
+dt_start = 1.0e-1
+err_pts = 1000
 dt = []
-#iter_list = np.zeros((num_pts, err_pts*np.power(2,(num_pts-1))))
-iter_list = np.zeros((num_pts, err_pts))
-real_time = 0
-method = 1      #RK4 = 0, symplectic = 1, velocity verlet = 2   
+real_time = 1
+method = 0      #RK4 = 0, symplectic = 1, velocity verlet = 2   
 stepsize = 2
+iter_list = np.zeros((num_pts, err_pts*np.power(2,(num_pts-1))))
+
+if real_time == 0:
+    iter_list = np.zeros((num_pts, err_pts))
 
 for i in range(0, num_pts):
     dt.append(dt_start)
@@ -48,12 +50,14 @@ for p in range(0, num_pts):
         for j in range(0, err_pts * np.power(2, p)):
             iter_list[p, j]=objectList[0].state.get_vel()[0]
             for k in range(0, len(objectList)):
-                objectList[k].iterate_state(1.0)
+                objectList[k].state = phys.iterate(objectList[k].get_state(), dt[p], method)
+               # objectList[k].iterate_state(1.0)
     else:
         for j in range(0, err_pts):
             iter_list[p, j]=objectList[0].state.get_vel()[1]
             for k in range (0, len(objectList)):
-                objectList[k].iterate_state(dt[p])
+                objectList[k].state = phys.iterate(objectList[k].get_state(), dt[p], method)
+                #objectList[k].iterate_state(dt[p])
     
     phys.G_OBJECTS.clear()
 
@@ -67,12 +71,10 @@ for i in range(0, num_pts):
         ax1.plot(np.linspace(0 , (dt[i] * (err_pts * np.power(2, i) - 1)), err_pts * np.power(2, i)), temp, label ='%f' %(dt[i]))
     else:
         temp = iter_list[i, 0:err_pts]
-        ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i] * 1e18))
-
-
+        ax1.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), temp, label = '%f' %(dt[i] * 1e9))
 
 # Plots the y velocity vs time step as it is
-ax1.legend(title = "Timesteps in 1e-18")
+ax1.legend(title = "Timesteps in 1e-9")
 ax1.set_title('Y-Velocity of Object 1 with Varying Time Step')
 plt.ylabel('Y-Velocity of Object 1')
 plt.xlabel('Time')
@@ -89,10 +91,12 @@ if real_time == 0:
     ax2 = fig2.add_subplot(111)
 
     for i in range(0, (num_pts-1)):
-        ax2.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), np.absolute(err[i,:]), label = '%f' %(dt[i]*1e18))
+        ax2.plot(np.linspace(0, dt_start*(err_pts-1), err_pts), np.absolute(err[i,:]), label = '%f' %(dt[i]*1e9))
 
-    ax2.legend(title = "Timestep in 1e-18")
+    ax2.legend(title = "Timestep in 1e-9")
     ax2.set_title('Absolute error of the Y-Velocity')
     plt.ylabel('Absolute Error')
     plt.xlabel('Time')
     plt.show()
+
+#@TODO absolute error with real time
