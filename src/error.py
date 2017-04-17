@@ -36,6 +36,7 @@ class Error:
         self.methods_list = np.zeros((3, self.err_pts))
         self.iter_flag = 0
         self.meth_flag = 0
+        self.meth_name = ["RK4", "Sympletic", "Velocity Verlet"]
 
     def iterate(self):
         if self.rt == 1:
@@ -52,7 +53,7 @@ class Error:
                     objectList.append(Obj)
                  # Only saves the data for Object 1's x-velocity
                 for j in range(0, self.err_pts * np.power(2, p)):
-                    self.iter_list[p, j]=objectList[0].state.get_vel()[0]
+                    self.iter_list[p, j]=objectList[0].state.get_vel()[1]
                     for k in range(0, len(objectList)):
                         objectList[k].state = phys.iterate(objectList[k].get_state(), self.dt[p], self.method)
                 phys.G_OBJECTS.clear()
@@ -95,7 +96,7 @@ class Error:
 
         # Plots the y velocity vs time step as it is
         ax1.legend(title = "Timesteps in 1e-3")
-        ax1.set_title('Y-Velocity of Object 1 with Varying Time Step')
+        ax1.set_title('Y-Velocity of Object 1 with Varying Time Step, %s' %self.meth_name[self.method])
         plt.ylabel('Y-Velocity of Object 1')
         plt.xlabel('Time')
         #plt.show()
@@ -107,11 +108,11 @@ class Error:
 
         for i in range(0, self.num_pts):
             temp = self.iter_list[i, 0:self.err_pts]
-            ax1.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), temp, label = '%f' %(self.dt[i] * 1e9))
+            ax1.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), temp, label = '%f' %(self.dt[i] * 1e3))
 
         # Plots the y velocity vs time step as it is
-        ax1.legend(title = "Timesteps in 1e-9")
-        ax1.set_title('Y-Velocity of Object 1 with Varying Time Step')
+        ax1.legend(title = "Timesteps in 1e-3")
+        ax1.set_title('Y-Velocity of Object 1 with Varying Time Step, %s' %self.meth_name[self.method])
         plt.ylabel('Y-Velocity of Object 1')
         plt.xlabel('Time')
         #plt.show()
@@ -137,7 +138,7 @@ class Error:
             ax2.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), np.absolute(err[i,:]), label = '%f' %(self.dt[i]*1e3))
 
         ax2.legend(title = "Timestep in 1e-3")
-        ax2.set_title('Absolute error of the Y-Velocity')
+        ax2.set_title('Absolute error of the Y-Velocity, %s' %self.meth_name[self.method])
         plt.ylabel('Absolute Error')
         plt.xlabel('Time')
         #plt.show()
@@ -147,7 +148,7 @@ class Error:
         copy2 = np.zeros((self.num_pts, self.err_pts))
         for i in range(0, (self.num_pts)):
             for j in range(0, (self.err_pts)):
-                copy1[i, j] = self.iter_list[i, j*(i+1)]
+                copy1[i, j] = self.iter_list[i, j*2**i]
         for i in range(0, (self.num_pts-1)):
             copy2[i, :] = copy1[i+1, :]
         err = copy1 - copy2
@@ -159,7 +160,7 @@ class Error:
             ax2.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), np.absolute(err[i,:]), label = '%f' %(self.dt[i]*1e3))
 
         ax2.legend(title = "Timestep in 1e-3")
-        ax2.set_title('Absolute error of the Y-Velocity')
+        ax2.set_title('Absolute error of the Y-Velocity, %s' %self.meth_name[self.method])
         plt.ylabel('Absolute Error')
         plt.xlabel('Time')
         #plt.show()
@@ -187,7 +188,7 @@ class Error:
 
         for i in range(0, 3):
             temp = self.methods_list[i, 0:self.err_pts]
-            ax3.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), temp, label = 'Method %f' %(i))
+            ax3.plot(np.linspace(0, self.dt_start1*(self.err_pts-1), self.err_pts), temp, label = self.meth_name[i])
 
         # Plots the y velocity vs time step as it is
         ax3.legend(title = "Method")

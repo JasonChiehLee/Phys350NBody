@@ -9,18 +9,17 @@ import matplotlib.pyplot as plt
 #method = 0 - RK4, 1 - symplectic, 2 - velocity verlet
 #stepsize default = 2
 
-err1 = Error(1, 1, 1.0e-1, 3, 1000, 1, 2)
+err1 = Error(1, 1, 1.0e-1, 5, 1000, 1, 2)
 err1.plot_methods()
 err1.abs_err_methods()
-plt.show()
 err1.plot_method()
 err1.abs_error()
 
-err2 = Error(1, 1, 1.0e-1, 3, 1000, 2, 2)
+err2 = Error(1, 1, 1.0e-1, 5, 1000, 2, 2)
 err2.plot_method()
 err2.abs_error()
 
-err3 = Error(1, 1, 1.0e-1, 3, 1000, 0, 2)
+err3 = Error(1, 1, 1.0e-1, 5, 1000, 0, 2)
 err3.plot_method()
 err3.abs_error()
 plt.show()  
