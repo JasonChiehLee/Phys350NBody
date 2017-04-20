@@ -115,14 +115,13 @@ def iterate_rk4(state, d_t):
 
 def iterate_sym_euler(state, d_t):
     """ Use Symplectic Euler to obtain new state. """
-    new_state = State(state.x + (state.u * d_t), state.y + (state.v * d_t), \
-                      state.u, state.v, state.tag)
+    accel = get_accel(state)
 
-    new_accel = get_accel(new_state)
-    new_state.u = state.u + (new_accel[0] * d_t)
-    new_state.v = state.v + (new_accel[1] * d_t)
+    new_u = state.u + (accel[0] * d_t)
+    new_v = state.v + (accel[1] * d_t)
 
-    return new_state
+    return State(state.x + (new_u * d_t), state.y + (new_v * d_t), \
+                 new_u, new_v, state.tag)
 
 def iterate_verlet(state, d_t):
     """ Use Velocity Verlet to obtain new state. """
